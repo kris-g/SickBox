@@ -7,11 +7,11 @@
 	
 		<!--
 		This is the connection for your torrent client: watch folder dropping
-		and download/unpack files fetching, ie. your seedbox
+		and download/unpack files fetching, ie. your seedbox.
 		-->
 		<TorrentDownloader Type="Ftp">
 			<Host>host_here</Host> <!-- Required. -->
-			<Port>21</Port> <!-- Optional, defaults to 21 -->
+			<Port>21</Port> <!-- Optional, defaults to 21. -->
 			<Username>username_here</Username> <!-- Required. -->
 			<Password>password_here</Password> <!-- Required. -->
 		</TorrentDownloader>
