@@ -1,0 +1,224 @@
+<Root>
+	<!--
+	Define you connection settings here.
+	Connection Type can be Ftp, where configuration details are needed or Local, where configuration can be left empty.
+	-->	
+	<Connections>
+	
+		<!--
+		This is the connection for your torrent client: watch folder dropping
+		and download/unpack files fetching, ie. your seedbox
+		-->
+		<TorrentDownloader Type="Ftp">
+			<Host>host_here</Host> <!-- Required. -->
+			<Port>21</Port> <!-- Optional, defaults to 21 -->
+			<Username>username_here</Username> <!-- Required. -->
+			<Password>password_here</Password> <!-- Required. -->
+		</TorrentDownloader>
+		
+		<!--
+		This is the connection for archiving your downloads to when they are finished
+		ie. your NAS or external hard drive
+		-->		
+		<ArchiveArea Type="Ftp">
+			<Host>host_here</Host> <!-- Required. -->
+			<Port>21</Port> <!-- Optional, defaults to 21 -->
+			<Username>username_here</Username> <!-- Required. -->
+			<Password>password_here</Password> <!-- Required. -->
+		</ArchiveArea>
+		
+	</Connections>
+
+	<!--
+	Define your server details here which services below might need access to.
+	-->
+	<Servers>
+		
+		<!-- Needed for figuring out which episodes you need -->
+		<SickBeard>
+			<Url>http://192.168.0.2:8081</Url> <!-- Required. -->
+			<ApiKey>api_key_here</ApiKey> <!-- Required. -->
+		</SickBeard>
+		
+		<!--
+		IpTorrents.eu details needed for torrents searching.
+		No other torrent search engines supported yet.
+		-->
+		<IpTorrents>
+			<Url>https://iptorrents.eu</Url> <!-- Required. -->
+			<Username>username_here</Username> <!-- Required. -->
+			<Password>password_here</Password> <!-- Required. -->
+		</IpTorrents>
+		
+		<!--
+		Needed to trigger a Plex library refresh after new episodes are downloaded and archived.
+		-->
+		<Plex>
+			<Url>http://192.168.0.2:32400</Url> <!-- Required. -->
+		</Plex>
+		
+	</Servers>
+	
+	<Services>
+	
+		<!--
+		Define mechanisms to use to figure out which episodes need downloading.
+		Can define multiple here.
+		-->
+		<WantedEpisodeProviders>
+			
+			<!--
+			SnatchedButStillMissingEpisode - asks SickBeard for recent history of attempted downloads and checks which have not downloaded still.
+			This mechanism is useful if SickBeard is primarily downloading from something like usenet and SickBox is only being used to recover things which failed to download.
+			-->
+			<Service Name="SnatchedButStillMissingEpisode">
+				<HistoryItems>20</HistoryItems> <!-- Number of recent history items to check. Optional, defaults to 10 -->
+			</Service>
+			
+			<!--
+			RecentWanted - checks all active shows in SickBeard and finds any episodes in Wanted state which aired recently.
+			This mechanism is useful if SickBeard isn't setup to download and you want SickBox to handle all downloading.
+			-->
+			<Service Name="RecentWanted">
+				<WithinDays>20</WithinDays> <!-- How many days back to check for Wanted episodes. Optional, defaults to 10 -->
+			</Service>
+			
+		</WantedEpisodeProviders>
+		
+		<!-- 
+		Define which torrent search engines to use.
+		Can define multiple, first to find a match for an episode wins.
+		Only IpTorrents service supported at the moment.
+		-->
+		<TorrentSearcher>
+		
+			<!-- IpTorrents.eu -->
+			<Service Name="IpTorrents">
+			
+				<!-- Strings to put on the end of all torrent searches. -->
+				<SearchQueryAdditions>
+					<Item>720p HDTV</Item>
+				</SearchQueryAdditions>
+				
+				<!-- Categories to exclude from search results. -->
+				<CategoriesToExclude>
+					<Item>TV/Web-DL</Item>
+				</CategoriesToExclude>
+				
+			</Service>
+			
+		</TorrentSearcher>
+		
+		<!--
+		Define overrides for show names to use when searching for torrents.
+		Optional section. Useful for show names with apostrophes or released using acronyms.
+		-->
+		<ShowName>
+		
+			<!-- ShowName - the only service supported here. -->
+			<Service Name="ShowName">
+				<Overrides>
+					<Item>
+						<Id>75805</Id> <!-- The ID from SickBeard. -->
+						<ShowName>Its Always Sunny in Philadelphia</ShowName> <!-- The overriding show name. -->
+					</Item>
+				</Overrides>
+			</Service>
+			
+		</ShowName>
+
+		<!--
+		Define the mechanism to use for starting downloads in your torrent client.
+		Required section.
+		Only WatchFolder service supported at the moment.
+		-->
+		<TorrentDownloadStart>
+		
+			<!-- WatchFolder - drop torrent files into a watch folder to start downloads. -->
+			<Service Name="WatchFolder">
+				<WatchFolderPath>watch</WatchFolderPath> <!-- The path to your client watch folder based on your defined TorrentDownloader connection. -->
+			</Service>
+			
+		</TorrentDownloadStart>
+
+		<!--
+		Define the mechanism to use for figuring out when downloads have completed.
+		Required section.
+		Only PollForCompleteFiles service supported at the moment.
+		-->
+		<TorrentCompleteNotifier>
+		
+			<!-- PollForCompleteFiles - poll defined folders for a single complete file whose name matches your torrent. -->
+			<Service Name="PollForCompleteFiles">
+			
+				<!-- The folders to look in for complete downloaded files. -->
+				<CompleteFilePossibleDestinationPaths>
+					<Item>unpack</Item>
+					<Item>downloads</Item>
+				</CompleteFilePossibleDestinationPaths>
+				
+			</Service>
+		</TorrentCompleteNotifier>
+		
+		<!--
+		Define the mechanism to use for archiving completed downloads.
+		Optional section. Don't define if you want to leave download on torrent client.
+		Only FileMoveAndDelete service supported at the moment.
+		-->
+		<TorrentDownloadArchiver>
+		
+			<!-- FileMoveAndDelete - moves completed downloads to ArchiveArea connection and then deletes from torrent client path. -->
+			<Service Name="FileMoveAndDelete">
+			</Service>
+			
+		</TorrentDownloadArchiver>
+		
+		<!--
+		Define the mechanism to use for archiving completed downloads.
+		Required section.
+		Can only have a single service here.
+		-->
+		<ArchivePath>
+		
+			<!-- SickBeardArchive - asks SickBeard for the show folder. Moves files to defined root path plus the show folder name. -->
+			<Service Name="SickBeardArchive">
+				<SickBeardRootPath>/Downloads/Sick Beard</SickBeardRootPath> <!-- Root path to use for building path. Required. -->
+			</Service>
+		
+			<!-- RootFolderArchive - asks SickBeard for the show folder. Moves files to defined root path plus the show folder name. -->
+			<Service Name="RootFolderArchive">
+				<RootPath>/Downloads</RootPath> <!-- Root path to use for building path. Required. -->
+			</Service>
+		
+			<!-- ShowNameArchive - Moves files to defined root path plus the show folder name. Might have problems if show name has special characters. -->
+			<Service Name="ShowNameArchive">
+				<RootPath>/Downloads/TV Shows</RootPath> <!-- Root path to use for building path. Required. -->
+			</Service>
+			
+		</ArchivePath>
+		
+		<!-- 
+		Define which post processor mechanisms execute after download/archive all finished.
+		Optional section. Can define multiple, all will be executed in below order.
+		-->
+		<TorrentPostProcessor>
+		
+			<!-- SickBeardRefreshAndRename - tell SickBeard to refresh and rename the shows downloaded. -->
+			<Service Name="SickBeardRefreshAndRename">
+			</Service>
+			
+			<!-- PlexLibraryRefresh - tell Plex to refresh your TV library. -->
+			<Service Name="PlexLibraryRefresh">
+				<TvLibraryId>your_plex_tv_library_id_here</TvLibraryId> <!-- The ID of your TV library in Plex. Required. -->
+			</Service>
+			
+			<!-- PushbulletNotification - send mobile notifications via Pushbullet app. -->
+			<Service Name="PushbulletNotification">
+				<AccountEmailAddress>pushbullet_account_email_here</AccountEmailAddress> <!-- Pushbullet account email. Required. -->
+				<AccessToken>access_token_here</AccessToken> <!-- Pushbullet access token. Required. -->
+			</Service>
+			
+		</TorrentPostProcessor>
+		
+	</Services>
+</Root>

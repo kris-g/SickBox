@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E72E1C71-98A2-4D3F-AB06-3AA42F8A8A34}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KrisG.SickBox.Core.Interfaces</RootNamespace>
+    <AssemblyName>KrisG.SickBox.Core.Interfaces</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Steveo.FileSize">
+      <HintPath>..\packages\FileSize.1.0.0\lib\net20\Steveo.FileSize.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data\FileSystem\FileEntry.cs" />
+    <Compile Include="Data\SickBeard\Episode.cs" />
+    <Compile Include="Data\SickBeard\HistoryEntryToEpisodeAdapter.cs" />
+    <Compile Include="Data\Torrent\TorrentDownloadResult.cs" />
+    <Compile Include="Data\Torrent\TorrentSearchResult.cs" />
+    <Compile Include="Enums\ConnectionType.cs" />
+    <Compile Include="Enums\FileSystemContext.cs" />
+    <Compile Include="Enums\ServerType.cs" />
+    <Compile Include="Factory\IIpTorrentsSearchClientFactory.cs" />
+    <Compile Include="Factory\ISickBeardClientFactory.cs" />
+    <Compile Include="FileSystem\IFileSystem.cs" />
+    <Compile Include="FileSystem\IFileSystemProvider.cs" />
+    <Compile Include="IDownloader.cs" />
+    <Compile Include="PathProvider\IArchivePathProvider.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\IServerProvider.cs" />
+    <Compile Include="SickBeard\IEpisode.cs" />
+    <Compile Include="SickBeard\IEpisodeMatcher.cs" />
+    <Compile Include="SickBeard\IShowNameProvider.cs" />
+    <Compile Include="SickBeard\IWantedEpisodeProvider.cs" />
+    <Compile Include="Torrent\ITorrentCompleteNotifier.cs" />
+    <Compile Include="Torrent\ITorrentDownloadArchiver.cs" />
+    <Compile Include="Torrent\ITorrentDownloadStart.cs" />
+    <Compile Include="Torrent\ITorrentPostProcessor.cs" />
+    <Compile Include="Torrent\ITorrentSearcher.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KrisG.IpTorrents.Client\KrisG.IpTorrents.Client.csproj">
+      <Project>{9FEFFA09-01AB-4477-B2F2-52318B01F5B3}</Project>
+      <Name>KrisG.IpTorrents.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KrisG.SickBeard.Client\KrisG.SickBeard.Client.csproj">
+      <Project>{2D8C0AE8-9DA5-4006-A8E4-C989B2B011F3}</Project>
+      <Name>KrisG.SickBeard.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KrisG.Utility\KrisG.Utility.csproj">
+      <Project>{A68CA0D3-4E87-4203-9F41-A234D962079E}</Project>
+      <Name>KrisG.Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
