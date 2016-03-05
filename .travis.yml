@@ -2,7 +2,7 @@ language: csharp
 solution: Src/KrisG.SickBox.sln
 install:
   - nuget restore Src/KrisG.SickBox.sln
-  - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
+  - nuget install NUnit.Runners -Version 3.0.1 -OutputDirectory testrunner
 script:
   - xbuild /p:Configuration=Release Src/KrisG.SickBox.sln
-  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./Src/KrisG.IpTorrents.Client.Test/bin/Release/KrisG.IpTorrents.Client.Test.dll
+  - mono ./testrunner/NUnit.Runners.3.0.1/tools/nunit-console.exe ./Src/KrisG.IpTorrents.Client.Test/bin/Release/KrisG.IpTorrents.Client.Test.dll
