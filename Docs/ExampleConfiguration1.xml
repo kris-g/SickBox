@@ -1,6 +1,6 @@
 <Root>
 	<!--
-	Define you connection settings here.
+	Define your connection settings here.
 	Connection Type can be Ftp, where configuration details are needed or Local, where configuration can be left empty.
 	-->	
 	<Connections>
