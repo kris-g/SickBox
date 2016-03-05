@@ -12,7 +12,7 @@ namespace KrisG.IpTorrents.Client.Test
             // assemble
             var testDataStream = GetType()
                 .Assembly
-                .GetManifestResourceStream("IpTorrents.Client.Test.TestData.SearchResults1.html");
+                .GetManifestResourceStream("KrisG.IpTorrents.Client.Test.TestData.SearchResults1.html");
             
             var reader = new StreamReader(testDataStream);
             var testData = reader.ReadToEnd();
