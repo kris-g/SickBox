@@ -1,6 +1,7 @@
 language: csharp
 solution: Src/KrisG.SickBox.sln
 install:
+  - nuget restore Src/KrisG.SickBox.sln
   - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
 script:
   - xbuild /p:Configuration=Release Src/KrisG.SickBox.sln
