@@ -1,13 +1,12 @@
 ﻿using System.IO;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace KrisG.IpTorrents.Client.Test
 {
-    [TestClass]
     public class SearchResultsParserTests
     {
-        [TestMethod]
+        [Test]
         public void ShouldParseResult()
         {
             // assemble
