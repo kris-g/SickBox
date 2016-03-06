@@ -24,6 +24,8 @@ using log4net;
 using Microsoft.Practices.Unity;
 using UnityLog4NetExtension.Log4Net;
 using IServiceProvider = KrisG.Utility.Interfaces.Service.IServiceProvider;
+using IIpTorrentsTorrentSearchClient = KrisG.IpTorrents.Client.Interfaces.ITorrentSearchClient;
+using IKickassTorrentsTorrentSearchClient = KrisG.KickassTorrents.Client.Interfaces.ITorrentSearchClient;
 
 namespace KrisG.SickBox.Core
 {
@@ -49,6 +51,8 @@ namespace KrisG.SickBox.Core
                 .RegisterType<IEnumerable<ITorrentSearcher>>(new ContainerControlledLifetimeManager(), new InjectionFactory(x => x.Resolve<IServiceProvider>().GetAll<ITorrentSearcher>()))
                 .RegisterType<IIpTorrentsSearchClientFactory, IpTorrentsSearchClientFactory>(new ContainerControlledLifetimeManager())
                 .RegisterType<ITorrentSearchClient>(new ContainerControlledLifetimeManager(), new InjectionFactory(x => x.Resolve<IIpTorrentsSearchClientFactory>().GetClient()))
+                .RegisterType<IKickassTorrentsSearchClientFactory, KickassTorrentsSearchClientFactory>(new ContainerControlledLifetimeManager())
+                .RegisterType<IKickassTorrentsTorrentSearchClient>(new ContainerControlledLifetimeManager(), new InjectionFactory(x => x.Resolve<IKickassTorrentsSearchClientFactory>().GetClient()))
                 .RegisterType<IShowNameProvider>(new ContainerControlledLifetimeManager(), new InjectionFactory(x => x.Resolve<IServiceProvider>().Get<IShowNameProvider>(true) ?? x.Resolve<ShowNameProvider>()))
                 .RegisterType<IEpisodeMatcher, RegexEpisodeMatcher>(new ContainerControlledLifetimeManager())
                 .RegisterType<ITorrentDownloadStart>(new ContainerControlledLifetimeManager(), new InjectionFactory(x => x.Resolve<IServiceProvider>().Get<ITorrentDownloadStart>()))

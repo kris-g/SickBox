@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using KrisG.SickBox.Core.Interfaces;
-using KrisG.SickBox.Core.Interfaces.Data.SickBeard;
-using KrisG.SickBox.Core.Interfaces.Data.Torrent;
 using KrisG.SickBox.Core.Interfaces.SickBeard;
 using KrisG.SickBox.Core.Interfaces.Torrent;
 using KrisG.Utility.Attributes;
 using log4net;
-using Newtonsoft.Json;
-using Formatting = Newtonsoft.Json.Formatting;
 
 namespace KrisG.SickBox.Core
 {

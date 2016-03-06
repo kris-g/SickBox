@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Xml.Linq;
 using KrisG.KickassTorrents.Client.Data;
@@ -46,13 +48,21 @@ namespace KrisG.KickassTorrents.Client
         {
             var queryUrl = BuildQueryUrl(query);
 
-            var stream = _webStreamProvider.GetStream(queryUrl);
-            var reader = new StreamReader(stream);
-            var response = reader.ReadToEnd();
+            try
+            {
+                var stream = _webStreamProvider.GetStream(queryUrl);
 
-            var doc = XDocument.Parse(response);
+                var reader = new StreamReader(stream);
+                var response = reader.ReadToEnd();
 
-            return _searchResultsParser.Parse(doc);
+                var doc = XDocument.Parse(response);
+
+                return _searchResultsParser.Parse(doc);
+            }
+            catch (WebException)
+            {
+                return Enumerable.Empty<SearchResult>();
+            }
         }
 
         public void DownloadTorrent(SearchResult item, string downloadPath)
