@@ -31,8 +31,6 @@ namespace KrisG.SickBeard.Client
         {
             _webStreamProvider = webStreamProvider;
             _parserProvider = parserProvider;
-
-            _webStreamProvider.Timeout = TimeSpan.FromSeconds(30);
         }
 
         public void Initialise(string url, string apiKey)

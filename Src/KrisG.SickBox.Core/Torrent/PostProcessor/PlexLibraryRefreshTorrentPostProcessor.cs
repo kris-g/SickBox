@@ -35,8 +35,6 @@ namespace KrisG.SickBox.Core.Torrent.PostProcessor
             _webStreamProvider = webStreamProvider;
             _retryAction = retryAction;
             _log = log;
-
-            _webStreamProvider.Timeout = TimeSpan.FromSeconds(30);
         }
 
         public void PostProcess(IEnumerable<TorrentDownloadResult> torrents)
