@@ -9,12 +9,19 @@ namespace KrisG.IpTorrents.Client
 {
     public class TorrentSearchClient : ITorrentSearchClient
     {
-        private string _url;
+        private const string DefaultBaseUrl = "https://iptorrents.eu";
+
+        private string _baseUrl;
         private string _username;
         private string _password;
 
         private readonly ISearchResultsParser _searchResultsParser;
         private readonly IFormAuthenticatedWebStreamProvider _webStreamProvider;
+
+        public static ITorrentSearchClient Create(string username, string password)
+        {
+            return Create(DefaultBaseUrl, username, password);
+        }
 
         public static ITorrentSearchClient Create(string url, string username, string password)
         {
@@ -34,20 +41,20 @@ namespace KrisG.IpTorrents.Client
 
         public void Initialise(string url, string username, string password)
         {
-            _url = url;
+            _baseUrl = url;
             _username = username;
             _password = password;
 
             _webStreamProvider.Username = _username;
             _webStreamProvider.Password = _password;
-            _webStreamProvider.FormAuthUrl = _url;
+            _webStreamProvider.FormAuthUrl = _baseUrl;
         }
 
         public IEnumerable<SearchResult> Search(string query)
         {
-            var url = BuildQueryUrl(query);
+            var queryUrl = BuildQueryUrl(query);
 
-            var stream = _webStreamProvider.GetStream(url);
+            var stream = _webStreamProvider.GetStream(queryUrl);
             var reader = new StreamReader(stream);
             var response = reader.ReadToEnd();
 
@@ -56,7 +63,7 @@ namespace KrisG.IpTorrents.Client
 
         public void DownloadTorrent(SearchResult item, string downloadPath)
         {
-            var downloadUrl = string.Format(@"{0}{1}", _url, item.Link);
+            var downloadUrl = string.Format(@"{0}{1}", _baseUrl, item.Link);
 
             var downloadFolder = Path.GetDirectoryName(downloadPath);
             Directory.CreateDirectory(downloadFolder);
@@ -67,7 +74,7 @@ namespace KrisG.IpTorrents.Client
         private string BuildQueryUrl(string query)
         {
             var encodedQuery = WebUtility.UrlEncode(query);
-            var result = string.Format(@"{0}/t?q={1}", _url, encodedQuery);
+            var result = string.Format(@"{0}/t?q={1}", _baseUrl, encodedQuery);
             return result;
         }
     }

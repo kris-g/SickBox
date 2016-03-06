@@ -49,7 +49,7 @@
     <Compile Include="Container.cs" />
     <Compile Include="Data\SearchResult.cs" />
     <Compile Include="Interfaces\Internal\IFormAuthenticatedWebStreamProvider.cs" />
-    <Compile Include="Interfaces\ISearchResultsParser.cs" />
+    <Compile Include="Interfaces\Internal\ISearchResultsParser.cs" />
     <Compile Include="Internal\CookieAwareWebClient.cs">
       <SubType>Component</SubType>
     </Compile>

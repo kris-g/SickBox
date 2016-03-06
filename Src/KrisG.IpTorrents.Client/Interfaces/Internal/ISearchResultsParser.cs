@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using KrisG.IpTorrents.Client.Data;
 
-namespace KrisG.IpTorrents.Client.Interfaces
+namespace KrisG.IpTorrents.Client.Interfaces.Internal
 {
-    public interface ISearchResultsParser
+    internal interface ISearchResultsParser
     {
         IEnumerable<SearchResult> Parse(string htmlContent);
     }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using KrisG.IpTorrents.Client.Data;
 using KrisG.IpTorrents.Client.Interfaces;
 using KrisG.SickBox.Core.Configuration.TorrentSearcher;

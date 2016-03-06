@@ -5,6 +5,7 @@ using System.Linq;
 using CsQuery;
 using KrisG.IpTorrents.Client.Data;
 using KrisG.IpTorrents.Client.Interfaces;
+using KrisG.IpTorrents.Client.Interfaces.Internal;
 
 namespace KrisG.IpTorrents.Client
 {
