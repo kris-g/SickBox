@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 
-namespace KrisG.Utility.Internal.Web
+namespace KrisG.IpTorrents.Client.Internal
 {
     internal class CookieAwareWebClient : WebClient
     {

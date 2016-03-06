@@ -48,7 +48,7 @@ namespace KrisG.SickBox.Core
                 .RegisterType<IEnumerable<IWantedEpisodeProvider>>(new ContainerControlledLifetimeManager(), new InjectionFactory(x => x.Resolve<IServiceProvider>().GetAll<IWantedEpisodeProvider>()))
                 .RegisterType<IEnumerable<ITorrentSearcher>>(new ContainerControlledLifetimeManager(), new InjectionFactory(x => x.Resolve<IServiceProvider>().GetAll<ITorrentSearcher>()))
                 .RegisterType<IIpTorrentsSearchClientFactory, IpTorrentsSearchClientFactory>(new ContainerControlledLifetimeManager())
-                .RegisterType<ISearchClient>(new ContainerControlledLifetimeManager(), new InjectionFactory(x => x.Resolve<IIpTorrentsSearchClientFactory>().GetClient()))
+                .RegisterType<ITorrentSearchClient>(new ContainerControlledLifetimeManager(), new InjectionFactory(x => x.Resolve<IIpTorrentsSearchClientFactory>().GetClient()))
                 .RegisterType<IShowNameProvider>(new ContainerControlledLifetimeManager(), new InjectionFactory(x => x.Resolve<IServiceProvider>().Get<IShowNameProvider>(true) ?? x.Resolve<ShowNameProvider>()))
                 .RegisterType<IEpisodeMatcher, RegexEpisodeMatcher>(new ContainerControlledLifetimeManager())
                 .RegisterType<ITorrentDownloadStart>(new ContainerControlledLifetimeManager(), new InjectionFactory(x => x.Resolve<IServiceProvider>().Get<ITorrentDownloadStart>()))

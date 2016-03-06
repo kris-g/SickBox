@@ -4,6 +4,6 @@ namespace KrisG.SickBox.Core.Interfaces.Factory
 {
     public interface IIpTorrentsSearchClientFactory
     {
-        ISearchClient GetClient();
+        ITorrentSearchClient GetClient();
     }
 }

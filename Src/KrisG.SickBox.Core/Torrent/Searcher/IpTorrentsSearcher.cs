@@ -23,7 +23,7 @@ namespace KrisG.SickBox.Core.Torrent.Searcher
         private readonly IShowNameProvider _showNameProvider;
         private readonly IEpisodeMatcher _episodeMatcher;
         private readonly ILog _log;
-        private readonly ISearchClient _searchClient;
+        private readonly ITorrentSearchClient _torrentSearchClient;
         
         public IIpTorrentsSearcherConfig Config { get; private set; }
 
@@ -37,7 +37,7 @@ namespace KrisG.SickBox.Core.Torrent.Searcher
             _episodeMatcher = episodeMatcher;
             _log = log;
 
-            _searchClient = searchClientFactory.GetClient();
+            _torrentSearchClient = searchClientFactory.GetClient();
         }
 
         public TorrentSearchResult Search(IEpisode episode)
@@ -50,7 +50,7 @@ namespace KrisG.SickBox.Core.Torrent.Searcher
                 query = string.Format("{0} {1}", query, Config.SearchQueryAdditions.JoinStrings(" "));
             }
 
-            var results = _searchClient.Search(query).ToArray();
+            var results = _torrentSearchClient.Search(query).ToArray();
             if (Config.CategoriesToExclude.Any())
             {
                 var countBeforeFilter = results.Length;
@@ -72,7 +72,7 @@ namespace KrisG.SickBox.Core.Torrent.Searcher
                 _log.InfoFormat("Downloading best candidate [{0}]", JsonConvert.SerializeObject(downloadItem, Formatting.None));
 
                 var downloadPath = BuildDownloadPath(downloadItem);
-                _searchClient.DownloadTorrent(downloadItem, downloadPath);
+                _torrentSearchClient.DownloadTorrent(downloadItem, downloadPath);
 
                 return new TorrentSearchResult(episode, downloadPath);
             }

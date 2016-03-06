@@ -1,12 +1,11 @@
 ﻿using System.Collections.Specialized;
 using System.IO;
 using System.Text;
-using KrisG.Utility.Interfaces.Web;
-using KrisG.Utility.Internal.Web;
+using KrisG.IpTorrents.Client.Interfaces.Internal;
 
-namespace KrisG.Utility.Web
+namespace KrisG.IpTorrents.Client.Internal
 {
-    public class FormAuthenticatedWebStreamProvider : IFormAuthenticatedWebStreamProvider
+    internal class FormAuthenticatedWebStreamProvider : IFormAuthenticatedWebStreamProvider
     {
         private CookieAwareWebClient _webClient;
 
@@ -18,6 +17,8 @@ namespace KrisG.Utility.Web
         public string Username { get; set; }
 
         public string Password { get; set; }
+
+        public string FormAuthUrl { get; set; }
 
         public Stream GetStream(string url)
         {
@@ -32,8 +33,6 @@ namespace KrisG.Utility.Web
 
         private CookieAwareWebClient BuildAuthenticatedWebClient()
         {
-            var url = @"https://iptorrents.eu/t?q=big+bang+theory+720p&qf=#torrents";
-
             var client = new CookieAwareWebClient();
 
             var values = new NameValueCollection
@@ -42,7 +41,7 @@ namespace KrisG.Utility.Web
                 {"password", Password},
             };
 
-            var response = client.UploadValues(url, "POST", values);
+            var response = client.UploadValues(FormAuthUrl, "POST", values);
 
             // should allow login validation
             var responseStr = Encoding.Default.GetString(response);

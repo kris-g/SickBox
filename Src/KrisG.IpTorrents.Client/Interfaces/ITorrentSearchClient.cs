@@ -3,7 +3,7 @@ using KrisG.IpTorrents.Client.Data;
 
 namespace KrisG.IpTorrents.Client.Interfaces
 {
-    public interface ISearchClient
+    public interface ITorrentSearchClient
     {
         void Initialise(string url, string username, string password);
 

@@ -1,15 +1,18 @@
 ﻿using System;
 using System.IO;
 
-namespace KrisG.Utility.Interfaces.Web
+namespace KrisG.IpTorrents.Client.Interfaces.Internal
 {
-    public interface IFormAuthenticatedWebStreamProvider : IDisposable
+    internal interface IFormAuthenticatedWebStreamProvider : IDisposable
     {
         string Username { get; set; }
 
         string Password { get; set; }
+        
+        string FormAuthUrl { get; set; }
 
         Stream GetStream(string url);
+
         void DownloadFile(string url, string localFilePath);
     }
 }

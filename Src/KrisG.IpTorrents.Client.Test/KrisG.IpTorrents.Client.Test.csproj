@@ -54,7 +54,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="TestData\SearchResults1.html" />
+    <EmbeddedResource Include="TestData\RawSearchResults1.html" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\KrisG.IpTorrents.Client\KrisG.IpTorrents.Client.csproj">
@@ -64,6 +64,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TestData\RawEmptySearchResults.html" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

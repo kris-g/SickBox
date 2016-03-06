@@ -15,22 +15,22 @@ namespace KrisG.SickBox.Core.Factory
         private readonly IServerProvider _serverProvider;
         private readonly ILog _log;
 
-        private readonly Lazy<ISearchClient> _lazyClient;
+        private readonly Lazy<ITorrentSearchClient> _lazyClient;
 
         public IpTorrentsSearchClientFactory(IServerProvider serverProvider, ILog log)
         {
-            _lazyClient = new Lazy<ISearchClient>(BuildClient);
+            _lazyClient = new Lazy<ITorrentSearchClient>(BuildClient);
 
             _serverProvider = serverProvider;
             _log = log;
         }
 
-        public ISearchClient GetClient()
+        public ITorrentSearchClient GetClient()
         {
             return _lazyClient.Value;
         }
 
-        private ISearchClient BuildClient()
+        private ITorrentSearchClient BuildClient()
         {
             var serverConfig = _serverProvider.Get<IIpTorrentsConfig>(ServerType.IpTorrents);
 
@@ -41,7 +41,7 @@ namespace KrisG.SickBox.Core.Factory
             _log.DebugFormat("Creating IPTorrents Client [Url: {0}, Username: {1}, Password: {2}]",
                 ipTorrentsUrl, ipTorrentsUsername, ipTorrentsPassword);
 
-            return SearchClient.Create(ipTorrentsUrl, ipTorrentsUsername, ipTorrentsPassword);
+            return TorrentSearchClient.Create(ipTorrentsUrl, ipTorrentsUsername, ipTorrentsPassword);
         }
     }
 }

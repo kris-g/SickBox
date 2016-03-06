@@ -62,11 +62,7 @@
     <Compile Include="Interfaces\Service\IConfigResolver.cs" />
     <Compile Include="Interfaces\Service\IServiceProvider.cs" />
     <Compile Include="Interfaces\Service\IServiceResolver.cs" />
-    <Compile Include="Interfaces\Web\IFormAuthenticatedWebStreamProvider.cs" />
     <Compile Include="Interfaces\Web\IWebStreamProvider.cs" />
-    <Compile Include="Internal\Web\CookieAwareWebClient.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="LoggedStreamCopier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RetryAction.cs" />
@@ -75,7 +71,6 @@
     <Compile Include="Service\CustomConfigResolver.cs" />
     <Compile Include="Service\ServiceResolver.cs" />
     <Compile Include="Service\XmlSerializerConfigResolver.cs" />
-    <Compile Include="Web\FormAuthenticatedWebStreamProvider.cs" />
     <Compile Include="Web\WebStreamProvider.cs" />
   </ItemGroup>
   <ItemGroup>

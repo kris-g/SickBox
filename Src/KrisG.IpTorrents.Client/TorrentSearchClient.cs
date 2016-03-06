@@ -3,11 +3,11 @@ using System.IO;
 using System.Net;
 using KrisG.IpTorrents.Client.Data;
 using KrisG.IpTorrents.Client.Interfaces;
-using KrisG.Utility.Interfaces.Web;
+using KrisG.IpTorrents.Client.Interfaces.Internal;
 
 namespace KrisG.IpTorrents.Client
 {
-    public class SearchClient : ISearchClient
+    public class TorrentSearchClient : ITorrentSearchClient
     {
         private string _url;
         private string _username;
@@ -16,15 +16,15 @@ namespace KrisG.IpTorrents.Client
         private readonly ISearchResultsParser _searchResultsParser;
         private readonly IFormAuthenticatedWebStreamProvider _webStreamProvider;
 
-        public static ISearchClient Create(string url, string username, string password)
+        public static ITorrentSearchClient Create(string url, string username, string password)
         {
-            var client = new Container().Resolve<ISearchClient>();
+            var client = new Container().Resolve<ITorrentSearchClient>();
             client.Initialise(url, username, password);
 
             return client;
         }
 
-        internal SearchClient(
+        internal TorrentSearchClient(
             ISearchResultsParser searchResultsParser,
             IFormAuthenticatedWebStreamProvider webStreamProvider)
         {
@@ -40,6 +40,7 @@ namespace KrisG.IpTorrents.Client
 
             _webStreamProvider.Username = _username;
             _webStreamProvider.Password = _password;
+            _webStreamProvider.FormAuthUrl = _url;
         }
 
         public IEnumerable<SearchResult> Search(string query)

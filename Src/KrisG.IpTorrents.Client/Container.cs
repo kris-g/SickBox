@@ -1,12 +1,12 @@
 ﻿using System;
 using KrisG.IpTorrents.Client.Interfaces;
-using KrisG.Utility.Interfaces.Web;
-using KrisG.Utility.Web;
+using KrisG.IpTorrents.Client.Interfaces.Internal;
+using KrisG.IpTorrents.Client.Internal;
 using Microsoft.Practices.Unity;
 
 namespace KrisG.IpTorrents.Client
 {
-    internal class Container// : IDisposable
+    internal class Container
     {
         private static readonly Lazy<IUnityContainer> _container = new Lazy<IUnityContainer>(BuildContainer);
 
@@ -20,7 +20,7 @@ namespace KrisG.IpTorrents.Client
             var container = new UnityContainer();
 
             container
-                .RegisterType<ISearchClient>(new InjectionFactory(x => new SearchClient(x.Resolve<ISearchResultsParser>(), x.Resolve<IFormAuthenticatedWebStreamProvider>())))
+                .RegisterType<ITorrentSearchClient>(new InjectionFactory(x => new TorrentSearchClient(x.Resolve<ISearchResultsParser>(), x.Resolve<IFormAuthenticatedWebStreamProvider>())))
                 .RegisterType<ISearchResultsParser, SearchResultsParser>()
                 .RegisterType<IFormAuthenticatedWebStreamProvider, FormAuthenticatedWebStreamProvider>();
 
