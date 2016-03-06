@@ -77,10 +77,11 @@
     <Compile Include="Configuration\TorrentDownloadStart\IWatchFolderTorrentDownloadStartConfig.cs" />
     <Compile Include="Configuration\TorrentPostProcessor\IPlexLibraryRefreshTorrentPostProcessorConfig.cs" />
     <Compile Include="Configuration\TorrentPostProcessor\IPushbulletNotificationTorrentPostProcessorConfig.cs" />
-    <Compile Include="Configuration\TorrentSearcher\IIpTorrentsSearcherConfig.cs" />
+    <Compile Include="Configuration\TorrentSearcher\ITorrentSearcherConfig.cs" />
     <Compile Include="Configuration\WantedEpisodeProvider\IFakeEpisodeProvider.cs" />
     <Compile Include="Configuration\WantedEpisodeProvider\IRecentWantedEpisodeProviderConfig.cs" />
     <Compile Include="Configuration\WantedEpisodeProvider\ISnatchedButStillMissingEpisodeProviderConfig.cs" />
+    <Compile Include="Factory\KickassTorrentsSearchClientFactory.cs" />
     <Compile Include="FileSystem\FtpFileSystem.cs" />
     <Compile Include="Container.cs" />
     <Compile Include="DefaultDownloader.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="Torrent\FakeTorrentCompleteNotifier.cs" />
     <Compile Include="Torrent\FakeTorrentDownloadStart.cs" />
     <Compile Include="Torrent\FilePollTorrentCompleteNotifier.cs" />
+    <Compile Include="Torrent\Searcher\KickassTorrentsSearcher.cs" />
     <Compile Include="Torrent\SingleFileMoveTorrentArchiver.cs" />
     <Compile Include="Factory\IpTorrentsSearchClientFactory.cs" />
     <Compile Include="Torrent\Searcher\IpTorrentsSearcher.cs" />
@@ -118,6 +120,10 @@
     <ProjectReference Include="..\KrisG.IpTorrents.Client\KrisG.IpTorrents.Client.csproj">
       <Project>{9FEFFA09-01AB-4477-B2F2-52318B01F5B3}</Project>
       <Name>KrisG.IpTorrents.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KrisG.KickassTorrents.Client\KrisG.KickassTorrents.Client.csproj">
+      <Project>{BA0CD224-04B2-47FF-9DF6-750AF8846DFF}</Project>
+      <Name>KrisG.KickassTorrents.Client</Name>
     </ProjectReference>
     <ProjectReference Include="..\KrisG.SickBeard.Client\KrisG.SickBeard.Client.csproj">
       <Project>{2D8C0AE8-9DA5-4006-A8E4-C989B2B011F3}</Project>

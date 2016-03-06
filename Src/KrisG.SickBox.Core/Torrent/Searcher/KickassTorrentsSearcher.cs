@@ -1,8 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using KrisG.IpTorrents.Client.Data;
-using KrisG.IpTorrents.Client.Interfaces;
+using KrisG.KickassTorrents.Client.Data;
 using KrisG.SickBox.Core.Configuration.TorrentSearcher;
 using KrisG.SickBox.Core.Interfaces.Data.Torrent;
 using KrisG.SickBox.Core.Interfaces.Factory;
@@ -13,11 +12,12 @@ using KrisG.Utility.Interfaces.Configuration;
 using log4net;
 using Microsoft.Practices.ObjectBuilder2;
 using Newtonsoft.Json;
+using ITorrentSearchClient = KrisG.KickassTorrents.Client.Interfaces.ITorrentSearchClient;
 
 namespace KrisG.SickBox.Core.Torrent.Searcher
 {
-    [ServiceImplementation("IpTorrents")]
-    public class IpTorrentsSearcher : ITorrentSearcher, IConfigurable<ITorrentSearcherConfig>
+    [ServiceImplementation("KickassTorrents")]
+    public class KickassTorrentsSearcher : ITorrentSearcher, IConfigurable<ITorrentSearcherConfig>
     {
         private readonly IShowNameProvider _showNameProvider;
         private readonly IEpisodeMatcher _episodeMatcher;
@@ -26,8 +26,8 @@ namespace KrisG.SickBox.Core.Torrent.Searcher
         
         public ITorrentSearcherConfig Config { get; private set; }
 
-        public IpTorrentsSearcher(
-            IIpTorrentsSearchClientFactory searchClientFactory,
+        public KickassTorrentsSearcher(
+            IKickassTorrentsSearchClientFactory searchClientFactory,
             IShowNameProvider showNameProvider,
             IEpisodeMatcher episodeMatcher,
             ILog log)
@@ -53,20 +53,20 @@ namespace KrisG.SickBox.Core.Torrent.Searcher
             if (Config.CategoriesToExclude.Any())
             {
                 var countBeforeFilter = results.Length;
-                results = results.Where(x => !Config.CategoriesToExclude.Contains(x.Type)).ToArray();
-                _log.InfoFormat("IPTorrents search query '{0}' returned {1} items, {2} remaining after type filter [{3}]",
+                results = results.Where(x => !Config.CategoriesToExclude.Contains(x.Category)).ToArray();
+                _log.InfoFormat("KickassTorrents search query '{0}' returned {1} items, {2} remaining after type filter [{3}]",
                     query, countBeforeFilter, results.Length, Config.CategoriesToExclude.JoinStrings("|"));
             }
             else
             {
-                _log.InfoFormat("IPTorrents search query '{0}' returned {1} items", query, results.Length);
+                _log.InfoFormat("KickassTorrents search query '{0}' returned {1} items", query, results.Length);
             }
 
             results = results.Where(x => _episodeMatcher.IsMatch(x.Name, episode)).ToArray();
 
             if (results.Length != 0)
             {
-                var downloadItem = results.OrderByDescending(x => x.Snatches).First();
+                var downloadItem = results.OrderByDescending(x => x.Seeders).First();
 
                 _log.InfoFormat("Downloading best candidate [{0}]", JsonConvert.SerializeObject(downloadItem, Formatting.None));
 

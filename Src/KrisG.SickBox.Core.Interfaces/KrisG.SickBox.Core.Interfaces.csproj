@@ -52,6 +52,7 @@
     <Compile Include="Enums\FileSystemContext.cs" />
     <Compile Include="Enums\ServerType.cs" />
     <Compile Include="Factory\IIpTorrentsSearchClientFactory.cs" />
+    <Compile Include="Factory\IKickassTorrentsSearchClientFactory.cs" />
     <Compile Include="Factory\ISickBeardClientFactory.cs" />
     <Compile Include="FileSystem\IFileSystem.cs" />
     <Compile Include="FileSystem\IFileSystemProvider.cs" />
@@ -73,6 +74,10 @@
     <ProjectReference Include="..\KrisG.IpTorrents.Client\KrisG.IpTorrents.Client.csproj">
       <Project>{9FEFFA09-01AB-4477-B2F2-52318B01F5B3}</Project>
       <Name>KrisG.IpTorrents.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KrisG.KickassTorrents.Client\KrisG.KickassTorrents.Client.csproj">
+      <Project>{BA0CD224-04B2-47FF-9DF6-750AF8846DFF}</Project>
+      <Name>KrisG.KickassTorrents.Client</Name>
     </ProjectReference>
     <ProjectReference Include="..\KrisG.SickBeard.Client\KrisG.SickBeard.Client.csproj">
       <Project>{2D8C0AE8-9DA5-4006-A8E4-C989B2B011F3}</Project>

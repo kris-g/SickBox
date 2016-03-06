@@ -11,7 +11,7 @@ namespace KrisG.KickassTorrents.Client
 {
     public class TorrentSearchClient : ITorrentSearchClient
     {
-        private const string DefaultBaseUrl = "https://kat.cr";
+        public const string DefaultBaseUrl = "https://kat.cr";
         
         private string _baseUrl;
 

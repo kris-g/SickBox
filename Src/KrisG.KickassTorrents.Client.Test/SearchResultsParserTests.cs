@@ -27,5 +27,25 @@ namespace KrisG.KickassTorrents.Client.Test
             Assert.IsNotNull(results);
             Assert.AreEqual(1, results.Length);
         }
+
+        [Test]
+        public void EmptyResultsShouldReturnNoResults()
+        {
+            // assemble
+            var testDataStream = GetType()
+                .Assembly
+                .GetManifestResourceStream("KrisG.KickassTorrents.Client.Test.TestData.EmptySearchResult.html");
+
+            var reader = new StreamReader(testDataStream);
+            var testData = reader.ReadToEnd();
+            var doc = XDocument.Parse(testData);
+
+            // act
+            var results = new SearchResultsParser().Parse(doc).ToArray();
+
+            // assert
+            Assert.IsNotNull(results);
+            Assert.AreEqual(0, results.Length);
+        }
     }
 }
