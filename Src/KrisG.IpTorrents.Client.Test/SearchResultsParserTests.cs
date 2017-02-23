@@ -22,7 +22,7 @@ namespace KrisG.IpTorrents.Client.Test
 
             // assert
             Assert.IsNotNull(results);
-            Assert.AreEqual(50, results.Length);
+            Assert.AreEqual(1, results.Length);
         }
 
         [Test]
