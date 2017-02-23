@@ -46,8 +46,9 @@
     <Reference Include="Microsoft.Practices.Unity">
       <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="PushbulletSharp">
       <HintPath>..\packages\PushBulletSharp.2.3.3\lib\portable-windows8+net45\PushbulletSharp.dll</HintPath>
@@ -78,6 +79,8 @@
     <Compile Include="Configuration\TorrentPostProcessor\IPlexLibraryRefreshTorrentPostProcessorConfig.cs" />
     <Compile Include="Configuration\TorrentPostProcessor\IPushbulletNotificationTorrentPostProcessorConfig.cs" />
     <Compile Include="Configuration\TorrentSearcher\ITorrentSearcherConfig.cs" />
+    <Compile Include="Configuration\TorrentSearcher\ITorrentSearcherConfigBase.cs" />
+    <Compile Include="Configuration\TorrentSearcher\ITorrentSearcherEpisodeOverrideConfig.cs" />
     <Compile Include="Configuration\WantedEpisodeProvider\IFakeEpisodeProvider.cs" />
     <Compile Include="Configuration\WantedEpisodeProvider\IRecentWantedEpisodeProviderConfig.cs" />
     <Compile Include="Configuration\WantedEpisodeProvider\ISnatchedButStillMissingEpisodeProviderConfig.cs" />

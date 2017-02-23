@@ -44,18 +44,29 @@ namespace KrisG.SickBox.Core.Torrent.Searcher
             var cleanedShowName = _showNameProvider.Get(episode);
 
             var query = string.Format("{0} s{1:00}e{2:00}", cleanedShowName, episode.SeasonNumber, episode.EpisodeNumber);
-            if (Config.SearchQueryAdditions.Length != 0)
-            {
-                query = string.Format("{0} {1}", query, Config.SearchQueryAdditions.JoinStrings(" "));
-            }
 
+            var config = Config.EpisodeOverrides.FirstOrDefault(x => x.Id == episode.ShowId) ?? Config as ITorrentSearcherConfigBase;
+
+            var result = config
+                .SearchQueryAdditions
+                .Select(x => $"{query} {x}")
+                //.Concat(new[] {query})
+                .Select(x => Search(episode, x, config))
+                .FirstOrDefault(x => x != null);
+            
+            return result;
+        }
+
+        private TorrentSearchResult Search(IEpisode episode, string query, ITorrentSearcherConfigBase config)
+        {
+            var categoriesToExclude = config.CategoriesToExclude;
             var results = _torrentSearchClient.Search(query).ToArray();
-            if (Config.CategoriesToExclude.Any())
+            if (categoriesToExclude.Any())
             {
                 var countBeforeFilter = results.Length;
-                results = results.Where(x => !Config.CategoriesToExclude.Contains(x.Type)).ToArray();
+                results = results.Where(x => !categoriesToExclude.Contains(x.Type)).ToArray();
                 _log.InfoFormat("IPTorrents search query '{0}' returned {1} items, {2} remaining after type filter [{3}]",
-                    query, countBeforeFilter, results.Length, Config.CategoriesToExclude.JoinStrings("|"));
+                    query, countBeforeFilter, results.Length, categoriesToExclude.JoinStrings("|"));
             }
             else
             {

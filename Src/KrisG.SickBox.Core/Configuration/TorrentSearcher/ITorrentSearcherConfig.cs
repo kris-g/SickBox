@@ -1,8 +1,7 @@
 ﻿namespace KrisG.SickBox.Core.Configuration.TorrentSearcher
 {
-    public interface ITorrentSearcherConfig
+    public interface ITorrentSearcherConfig : ITorrentSearcherConfigBase
     {
-        string[] SearchQueryAdditions { get; }
-        string[] CategoriesToExclude { get; }        
+        ITorrentSearcherEpisodeOverrideConfig[] EpisodeOverrides { get; }
     }
 }
