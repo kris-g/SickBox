@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using KrisG.SickBeard.Client.Data;
 using KrisG.SickBeard.Client.Enums;
 using KrisG.SickBeard.Client.Interfaces;
@@ -48,7 +49,8 @@ namespace KrisG.SickBox.Core.WantedEpisodeProvider
                 Config.WithinDays, string.Join(", ", filteredShows.Select(x => x.ShowName)));
 
             var recentWantedEpisodes = filteredShows
-                .Select(x => new { Show = x, x.Id, MostRecentSeason = GetMostRecentSeasonNumber(x.Id) })
+                .Select(x => new { Show = x, x.Id, MostRecentSeasons = GetMostRecentSeasonNumber(x.Id) })
+                .SelectMany(x => x.MostRecentSeasons, (x, season) => new { x.Show, x.Id, MostRecentSeason = season })
                 .Select(x => new { x.Show, x.Id, SeasonSummary = GetSeason(x.Id, x.MostRecentSeason)})
                 .Select(x => new { x.Show, x.Id, x.SeasonSummary.SeasonNumber, Episodes = GetRecentWantedEpisodes(x.SeasonSummary.Episodes) })
                 .ToArray();
@@ -71,11 +73,11 @@ namespace KrisG.SickBox.Core.WantedEpisodeProvider
             return result;
         }
 
-        int GetMostRecentSeasonNumber(int showId)
+        IEnumerable<int> GetMostRecentSeasonNumber(int showId)
         {
             return _retryAction.DoWithRetries(() => _sickBeardClient.ShowSeasonList(showId), NumberOfAttempts, _delayBetweenRetries)
                 .OrderByDescending(y => y)
-                .FirstOrDefault();
+                .Take(2);
         }
 
         SeasonSummary GetSeason(int showId, int seasonNumber)
