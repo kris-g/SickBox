@@ -11,6 +11,8 @@ namespace KrisG.IpTorrents.Client.Interfaces.Internal
         
         string FormAuthUrl { get; set; }
 
+        IProxyConfig ProxyConfig { get; set; }
+
         Stream GetStream(string url);
 
         void DownloadFile(string url, string localFilePath);

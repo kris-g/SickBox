@@ -50,6 +50,8 @@
     <Compile Include="Data\SearchResult.cs" />
     <Compile Include="Interfaces\Internal\IFormAuthenticatedWebStreamProvider.cs" />
     <Compile Include="Interfaces\Internal\ISearchResultsParser.cs" />
+    <Compile Include="Interfaces\IProxyConfig.cs" />
+    <Compile Include="Interfaces\ProxyServerType.cs" />
     <Compile Include="Internal\CookieAwareWebClient.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -60,7 +62,15 @@
     <Compile Include="SearchResultsParser.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\SocksWebProxyProper\SocksWebProxy\SocksWebProxy.csproj">
+      <Project>{EF64B71A-6512-460E-8F0A-BCD456FF9461}</Project>
+      <Name>SocksWebProxy</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using KrisG.SickBeard.Client.Data;
+﻿using KrisG.SickBeard.Client.Data;
 using KrisG.SickBox.Core.Interfaces.SickBeard;
 
 namespace KrisG.SickBox.Core.Interfaces.Data.SickBeard

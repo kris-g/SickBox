@@ -10,7 +10,6 @@ using KrisG.SickBox.Core.Interfaces.Service;
 using KrisG.SickBox.Core.Interfaces.Torrent;
 using KrisG.Utility.Attributes;
 using KrisG.Utility.Interfaces.Configuration;
-using KrisG.Utility.Interfaces.Service;
 using log4net;
 
 namespace KrisG.SickBox.Core.Torrent.PostProcessor

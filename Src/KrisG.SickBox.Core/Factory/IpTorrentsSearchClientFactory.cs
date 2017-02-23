@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using KrisG.IpTorrents.Client;
 using KrisG.IpTorrents.Client.Interfaces;
 using KrisG.SickBox.Core.Configuration.Server;
@@ -6,6 +7,8 @@ using KrisG.SickBox.Core.Interfaces.Enums;
 using KrisG.SickBox.Core.Interfaces.Factory;
 using KrisG.SickBox.Core.Interfaces.Service;
 using log4net;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace KrisG.SickBox.Core.Factory
 {
@@ -33,14 +36,15 @@ namespace KrisG.SickBox.Core.Factory
         {
             var serverConfig = _serverProvider.Get<IIpTorrentsConfig>(ServerType.IpTorrents);
 
-            string ipTorrentsUrl = serverConfig.Url;
-            string ipTorrentsUsername = serverConfig.Username;
-            string ipTorrentsPassword = serverConfig.Password;
-
+            var ipTorrentsUrl = serverConfig.Url;
+            var ipTorrentsUsername = serverConfig.Username;
+            var ipTorrentsPassword = serverConfig.Password;
+            var ipTorrentsProxyConfig = serverConfig.Proxy;
+            
             _log.DebugFormat("Creating IPTorrents Client [Url: {0}, Username: {1}, Password: {2}]",
                 ipTorrentsUrl, ipTorrentsUsername, ipTorrentsPassword);
 
-            return TorrentSearchClient.Create(ipTorrentsUrl, ipTorrentsUsername, ipTorrentsPassword);
+            return TorrentSearchClient.Create(ipTorrentsUrl, ipTorrentsUsername, ipTorrentsPassword, ipTorrentsProxyConfig);
         }
     }
 }

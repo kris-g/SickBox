@@ -1,4 +1,5 @@
-﻿using KrisG.Utility.Attributes;
+﻿using KrisG.IpTorrents.Client.Interfaces;
+using KrisG.Utility.Attributes;
 
 namespace KrisG.SickBox.Core.Configuration.Server
 {
@@ -9,5 +10,7 @@ namespace KrisG.SickBox.Core.Configuration.Server
 
         [Required]
         string Password { get; }
+
+        IProxyConfig Proxy { get; }
     }
 }

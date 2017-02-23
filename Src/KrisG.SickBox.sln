@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KrisG.KickassTorrents.Clien
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KrisG.KickassTorrents.Client.Test", "KrisG.KickassTorrents.Client.Test\KrisG.KickassTorrents.Client.Test.csproj", "{4E24252C-75A2-4846-BDA9-64705424AB86}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocksWebProxy", "..\..\SocksWebProxyProper\SocksWebProxy\SocksWebProxy.csproj", "{EF64B71A-6512-460E-8F0A-BCD456FF9461}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Org.Mentalis", "..\..\SocksWebProxyProper\Org.Mentalis\Org.Mentalis.csproj", "{4C3F4F57-A121-44BA-97CE-B5F30ED6A735}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +65,14 @@ Global
 		{4E24252C-75A2-4846-BDA9-64705424AB86}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E24252C-75A2-4846-BDA9-64705424AB86}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E24252C-75A2-4846-BDA9-64705424AB86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF64B71A-6512-460E-8F0A-BCD456FF9461}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF64B71A-6512-460E-8F0A-BCD456FF9461}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF64B71A-6512-460E-8F0A-BCD456FF9461}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF64B71A-6512-460E-8F0A-BCD456FF9461}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C3F4F57-A121-44BA-97CE-B5F30ED6A735}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C3F4F57-A121-44BA-97CE-B5F30ED6A735}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C3F4F57-A121-44BA-97CE-B5F30ED6A735}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C3F4F57-A121-44BA-97CE-B5F30ED6A735}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

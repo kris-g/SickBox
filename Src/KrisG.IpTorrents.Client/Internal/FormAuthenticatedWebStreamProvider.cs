@@ -1,6 +1,8 @@
 ﻿using System.Collections.Specialized;
 using System.IO;
+using System.Net;
 using System.Text;
+using KrisG.IpTorrents.Client.Interfaces;
 using KrisG.IpTorrents.Client.Interfaces.Internal;
 
 namespace KrisG.IpTorrents.Client.Internal
@@ -20,6 +22,8 @@ namespace KrisG.IpTorrents.Client.Internal
 
         public string FormAuthUrl { get; set; }
 
+        public IProxyConfig ProxyConfig { get; set; }
+
         public Stream GetStream(string url)
         {
             var webStream = WebClient.OpenRead(url);
@@ -35,6 +39,12 @@ namespace KrisG.IpTorrents.Client.Internal
         {
             var client = new CookieAwareWebClient();
 
+            if (ProxyConfig?.Type == ProxyServerType.Http)
+            {
+                string ip = $"{ProxyConfig.ServerIpAddress}:{ProxyConfig.ServerPort}";
+                client.Proxy = new WebProxy(ip, true);
+            }
+
             var values = new NameValueCollection
             {
                 {"username", Username},
@@ -43,7 +53,7 @@ namespace KrisG.IpTorrents.Client.Internal
 
             var response = client.UploadValues(FormAuthUrl, "POST", values);
 
-            // should allow login validation
+            // TODO: should allow login validation
             var responseStr = Encoding.Default.GetString(response);
 
             return client;
