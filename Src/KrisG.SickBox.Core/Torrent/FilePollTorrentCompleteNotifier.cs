@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using KrisG.SickBox.Core.Configuration.TorrentCompleteNotifier;
+using KrisG.SickBox.Core.Interfaces.Data.FileSystem;
 using KrisG.SickBox.Core.Interfaces.Data.Torrent;
 using KrisG.SickBox.Core.Interfaces.Enums;
 using KrisG.SickBox.Core.Interfaces.FileSystem;
@@ -54,16 +55,35 @@ namespace KrisG.SickBox.Core.Torrent
 
             var pollAttempt = 0;
             int pollInterval = Config.FileArrivePollIntervalSeconds * 1000;
-            int maxPollAttempts = (Config.FileArrivePollTotalTimeMinutes*60*1000)/pollInterval;
+            int maxPollAttempts = (Config.FileArrivePollTotalTimeMinutes * 60 * 1000) / pollInterval;
             while (pollAttempt < maxPollAttempts && result.Count != torrentsArray.Length)
             {
                 pollAttempt++;
-                _log.InfoFormat("Poll attempt {0} of {1} [Duration: {2}]", pollAttempt, maxPollAttempts, sw.Elapsed);
+                _log.InfoFormat("Poll attempt {0} of {1} [Duration: {2}, Found: {3}, Total: {4}]", pollAttempt, maxPollAttempts, sw.Elapsed, result.Count, torrentsArray.Length);
 
                 var downloadItems = Config.CompleteFilePossibleDestinationPaths.SelectMany(fileSystem.ListFiles);
                 var downloadItemsToCheck = downloadItems
                     .Where(x => !result.Any(tdr => tdr.DownloadFilePath == x.Path))
                     .ToArray();
+
+                // TODO: make extensions configuration driven
+                var supportedExtensions = new HashSet<string> { "mkv", "avi" };
+                var downloadDirectories = Config.CompleteFilePossibleDestinationPaths.SelectMany(fileSystem.ListDirectories).ToArray();
+                var downloadItemsInSubDirs = downloadDirectories
+                    .SelectMany(x => torrentsArray, (file, torrent) => new { file, torrent.Episode })
+                    .Where(x => _episodeMatcher.IsMatch(x.file.Name, x.Episode))
+    
+                    // check for items in sub-directories too
+                    .Select(x => fileSystem.ListFiles(x.file.Path))
+                    .SelectMany(x => x)
+                    .Where(x => supportedExtensions.Contains(x.Name.Substring(x.Name.Length - 3).ToLowerInvariant()))
+                    .ToArray();
+                
+                if (downloadItemsInSubDirs.Length != 0)
+                {
+                    downloadItemsToCheck = downloadItemsToCheck.Concat(downloadItemsInSubDirs).ToArray();
+                    _log.InfoFormat("{0} additional items found in subdirectories to check", downloadItemsInSubDirs.Length);
+                }
 
                 foreach (var fileEntry in downloadItemsToCheck)
                 {
@@ -102,7 +122,7 @@ namespace KrisG.SickBox.Core.Torrent
 
                 pollAttempt = 0;
                 pollInterval = Config.FileGrowingPollIntervalSeconds * 1000;
-                maxPollAttempts = (Config.FileGrowingPollTotalTimeMinutes*60*1000)/pollInterval;
+                maxPollAttempts = (Config.FileGrowingPollTotalTimeMinutes * 60 * 1000) / pollInterval;
 
                 while (pollAttempt < maxPollAttempts && fileSizeChanged)
                 {

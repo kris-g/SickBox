@@ -53,9 +53,24 @@ namespace KrisG.SickBox.Core.FileSystem
                 .Select(x => new FileEntry(x.Name, x.Path.ToString()));
         }
 
+        public IEnumerable<FileEntry> ListDirectories(string directoryPath)
+        {
+            return _lazyClient.Value
+                .ListEntries(new FtpPath(directoryPath))
+                .Where(x => x.Type == FtpEntryType.Directory)
+                .Select(x => new FileEntry(x.Name, x.Path.ToString()));
+        }
+
         public FileSize GetFileSize(string path)
         {
-            return new FileSize(_lazyClient.Value.GetEntry(new FtpPath(path)).Size.Value);
+            var ftpEntry = _lazyClient.Value.GetEntry(new FtpPath(path));
+
+            if (ftpEntry != null)
+            {
+                return new FileSize(ftpEntry.Size.Value);
+            }
+
+            return new FileSize();
         }
 
         public string PathCombine(params string[] parts)

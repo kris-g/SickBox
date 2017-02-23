@@ -13,6 +13,7 @@ namespace KrisG.SickBox.Core.Interfaces.FileSystem
         Stream OpenWriteStream(string path);
         bool DeleteFile(string path);
         IEnumerable<FileEntry> ListFiles(string directoryPath);
+        IEnumerable<FileEntry> ListDirectories(string directoryPath);
         FileSize GetFileSize(string path);
         string PathCombine(params string[] parts);
     }

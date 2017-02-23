@@ -44,6 +44,11 @@ namespace KrisG.SickBox.Core.FileSystem
             return Directory.GetFiles(directoryPath).Select(x => new FileEntry(Path.GetFileName(x), x));
         }
 
+        public IEnumerable<FileEntry> ListDirectories(string directoryPath)
+        {
+            return Directory.GetDirectories(directoryPath).Select(x => new FileEntry(Path.GetDirectoryName(x), x));
+        }
+
         public FileSize GetFileSize(string path)
         {
             return new FileSize(new FileInfo(path).Length);
