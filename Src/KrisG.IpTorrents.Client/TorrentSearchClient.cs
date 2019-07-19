@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
 using KrisG.IpTorrents.Client.Data;
 using KrisG.IpTorrents.Client.Interfaces;
@@ -57,6 +59,10 @@ namespace KrisG.IpTorrents.Client
         public IEnumerable<SearchResult> Search(string query)
         {
             var queryUrl = BuildQueryUrl(query);
+
+            Process.Start(queryUrl);
+
+            return Enumerable.Empty<SearchResult>();
 
             var stream = _webStreamProvider.GetStream(queryUrl);
             var reader = new StreamReader(stream);
