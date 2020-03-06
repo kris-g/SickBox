@@ -6,5 +6,8 @@ namespace KrisG.SickBox.Core.Configuration.TorrentPostProcessor
     {
         [Required]
         int TvLibraryId { get; }
+
+        [Required]
+        string AccessToken { get; }
     }
 }

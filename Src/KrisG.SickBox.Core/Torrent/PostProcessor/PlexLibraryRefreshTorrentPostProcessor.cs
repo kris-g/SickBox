@@ -39,7 +39,7 @@ namespace KrisG.SickBox.Core.Torrent.PostProcessor
         public void PostProcess(IEnumerable<TorrentDownloadResult> torrents)
         {
             var serverConfig = _serverProvider.Get<IUrlConfig>(ServerType.Plex);
-            var plexRefreshTvUrl = string.Format(@"{0}/library/sections/{1}/refresh", serverConfig.Url, Config.TvLibraryId);
+            var plexRefreshTvUrl = string.Format(@"{0}/library/sections/{1}/refresh?X-Plex-Token={2}", serverConfig.Url, Config.TvLibraryId, Config.AccessToken);
             
             _log.InfoFormat("Triggering refresh in Plex Media Server [Url: {0}]", plexRefreshTvUrl);
 
