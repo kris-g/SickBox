@@ -133,16 +133,18 @@ namespace KrisG.SickBeard.Client
             var args = new[] { new Tuple<string, string>("tvdbid", id.ToString()) };
             var url = BuildUrl("show.refresh", args);
 
-            var stream = _webStreamProvider.GetStream(url);
-            var reader = new StreamReader(stream);
-            var jsonReader = new JsonTextReader(reader);
+            using (var stream = _webStreamProvider.GetStream(url))
+            {
+                var reader = new StreamReader(stream);
+                var jsonReader = new JsonTextReader(reader);
 
-            var jsonObj = JObject.Load(jsonReader);
+                var jsonObj = JObject.Load(jsonReader);
 
-            var parser = _parserProvider.GetParser<ShowRefreshResponse>();
-            var result = parser.Parse(jsonObj);
+                var parser = _parserProvider.GetParser<ShowRefreshResponse>();
+                var result = parser.Parse(jsonObj);
 
-            return result.Result == "success";
+                return result.Result == "success";
+            }
         }
 
         public void ShowFixFileNames(int id)
