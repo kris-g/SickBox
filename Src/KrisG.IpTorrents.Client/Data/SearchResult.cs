@@ -1,7 +1,11 @@
-﻿using System.IO;
+﻿using System;
+using Newtonsoft.Json;
+using System.Diagnostics;
+using System.IO;
 
 namespace KrisG.IpTorrents.Client.Data
 {
+    [DebuggerDisplay("Name = {Name}")]
     public class SearchResult
     {
         public string Name { get; private set; }
@@ -18,15 +22,28 @@ namespace KrisG.IpTorrents.Client.Data
 
         public string Type { get; private set; }
 
-        public SearchResult(string name, FileSize fileSize, int snatches, int seeders, int leechers, string link, string type)
+        public DateTime? PublishedDate { get; private set; }
+
+        [JsonConstructor]
+        public SearchResult(string name, FileSize fileSize, int snatches, int seeders, int leechers, string link, string type, DateTime? publishedDate)
         {
-            Type = type;
-            Link = link;
-            Leechers = leechers;
-            Seeders = seeders;
             Name = name;
             FileSize = fileSize;
             Snatches = snatches;
+            Seeders = seeders;
+            Leechers = leechers;
+            Link = link;
+            Type = type;
+            PublishedDate = publishedDate;
+        }
+
+        public SearchResult(string name, FileSize fileSize, string link, string type, DateTime? publishedDate)
+        {
+            Name = name;
+            FileSize = fileSize;
+            Link = link;
+            Type = type;
+            PublishedDate = publishedDate;
         }
     }
 }

@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net;
 using KrisG.IpTorrents.Client.Data;
 using KrisG.IpTorrents.Client.Interfaces;
@@ -29,7 +27,7 @@ namespace KrisG.IpTorrents.Client
 
         public static ITorrentSearchClient Create(string url, string username, string password, IProxyConfig proxyConfig = null)
         {
-            var client = new Container().Resolve<ITorrentSearchClient>();
+            var client = new Container().Resolve<TorrentSearchClient>();
             client.Initialise(url, username, password, proxyConfig);
 
             return client;
@@ -60,9 +58,9 @@ namespace KrisG.IpTorrents.Client
         {
             var queryUrl = BuildQueryUrl(query);
 
-            Process.Start(queryUrl);
+            //Process.Start(queryUrl);
 
-            return Enumerable.Empty<SearchResult>();
+            //return Enumerable.Empty<SearchResult>();
 
             var stream = _webStreamProvider.GetStream(queryUrl);
             var reader = new StreamReader(stream);

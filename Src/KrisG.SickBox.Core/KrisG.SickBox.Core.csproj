@@ -70,6 +70,7 @@
     <Compile Include="Configuration\ArchivePathProvider\ISickBeardArchivePathProviderConfig.cs" />
     <Compile Include="Configuration\FileSystem\IFtpFileSystemConfig.cs" />
     <Compile Include="Configuration\Server\IIpTorrentsConfig.cs" />
+    <Compile Include="Configuration\Server\IIpTorrentsRssConfig.cs" />
     <Compile Include="Configuration\Server\ISickBeardClientConfig.cs" />
     <Compile Include="Configuration\Server\IUrlConfig.cs" />
     <Compile Include="Configuration\ShowNameProvider\IShowNameOverride.cs" />
