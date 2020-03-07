@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using ArxOne.Ftp;
+using FluentFTP;
 using KrisG.SickBox.Core.Configuration.FileSystem;
 using KrisG.SickBox.Core.Interfaces.Data.FileSystem;
 using KrisG.SickBox.Core.Interfaces.Enums;
@@ -20,10 +20,7 @@ namespace KrisG.SickBox.Core.FileSystem
 
         public IFtpFileSystemConfig Config { get; private set; }
 
-        public ConnectionType Type
-        {
-            get { return ConnectionType.Ftp; }
-        }
+        public ConnectionType Type => ConnectionType.Ftp;
 
         public FtpFileSystem()
         {
@@ -32,59 +29,64 @@ namespace KrisG.SickBox.Core.FileSystem
 
         public Stream OpenReadStream(string path)
         {
-            return _lazyClient.Value.Retr(new FtpPath(path));
+            return _lazyClient.Value.OpenRead(path);
         }
 
         public Stream OpenWriteStream(string path)
         {
-            return _lazyClient.Value.Stor(new FtpPath(path));
+            return _lazyClient.Value.OpenWrite(path);
         }
 
         public void CompleteOperation()
         {
+            _lazyClient.Value.GetReply();
         }
 
         public bool DeleteFile(string path)
         {
-            return _lazyClient.Value.Dele(new FtpPath(path));
+            _lazyClient.Value.DeleteFile(path);
+            return true;
         }
 
         public IEnumerable<FileEntry> ListFiles(string directoryPath)
         {
-            return _lazyClient.Value
-                .ListEntries(new FtpPath(directoryPath))
-                .Where(x => x.Type == FtpEntryType.File)
-                .Select(x => new FileEntry(x.Name, x.Path.ToString()));
+            var ftpListItems1 = _lazyClient.Value.GetListing(directoryPath).ToArray();
+            var ftpListItems2 = ftpListItems1.Where(x => x.Type == FtpFileSystemObjectType.Directory).SelectMany(x => _lazyClient.Value.GetListing(x.FullName));
+
+            return ftpListItems1
+                .Concat(ftpListItems2)
+                .Where(x => x.Type == FtpFileSystemObjectType.File)
+                .Select(x => new FileEntry(x.Name, x.FullName));
         }
 
         public IEnumerable<FileEntry> ListDirectories(string directoryPath)
         {
             return _lazyClient.Value
-                .ListEntries(new FtpPath(directoryPath))
-                .Where(x => x.Type == FtpEntryType.Directory)
-                .Select(x => new FileEntry(x.Name, x.Path.ToString()));
+                .GetListing(directoryPath)
+                .Where(x => x.Type == FtpFileSystemObjectType.Directory)
+                .Select(x => new FileEntry(x.Name, x.FullName));
         }
 
         public FileSize GetFileSize(string path)
         {
-            var ftpEntry = _lazyClient.Value.GetEntry(new FtpPath(path));
-
-            if (ftpEntry != null)
-            {
-                return new FileSize(ftpEntry.Size.Value);
-            }
-
-            return new FileSize();
+            return new FileSize(_lazyClient.Value.GetFileSizeAsync(path).Result);
         }
 
         public string PathCombine(params string[] parts)
         {
-            return string.Join("/", parts);
+            return "/" + string.Join("/", parts);
         }
 
         private FtpClient BuildClient()
         {
-            return new FtpClient(FtpProtocol.Ftp, Config.Host, Config.Port, new NetworkCredential(Config.Username, Config.Password));
+            var client = new FtpClient(
+                Config.Host,
+                Config.Port,
+                new NetworkCredential(Config.Username, Config.Password));
+
+            client.Connect();
+
+            return client;
         }
     }
 }

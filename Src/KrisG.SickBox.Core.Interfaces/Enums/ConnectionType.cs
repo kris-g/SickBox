@@ -3,7 +3,6 @@
     public enum ConnectionType
     {
         Ftp,
-        Ftps,
         Local
     }
 }
