@@ -90,6 +90,7 @@
     <Compile Include="Configuration\WantedEpisodeProvider\IFakeEpisodeProvider.cs" />
     <Compile Include="Configuration\WantedEpisodeProvider\IRecentWantedEpisodeProviderConfig.cs" />
     <Compile Include="Configuration\WantedEpisodeProvider\ISnatchedButStillMissingEpisodeProviderConfig.cs" />
+    <Compile Include="Factory\IpTorrentsRssSearchClientFactory.cs" />
     <Compile Include="Factory\KickassTorrentsSearchClientFactory.cs" />
     <Compile Include="FileSystem\FtpFileSystem.cs" />
     <Compile Include="Container.cs" />

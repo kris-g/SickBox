@@ -49,7 +49,7 @@ namespace KrisG.SickBox.Core
                 .RegisterType<ISickBeardClient>(new ContainerControlledLifetimeManager(), new InjectionFactory(x => x.Resolve<ISickBeardClientFactory>().GetClient()))
                 .RegisterType<IEnumerable<IWantedEpisodeProvider>>(new ContainerControlledLifetimeManager(), new InjectionFactory(x => x.Resolve<IServiceProvider>().GetAll<IWantedEpisodeProvider>()))
                 .RegisterType<IEnumerable<ITorrentSearcher>>(new ContainerControlledLifetimeManager(), new InjectionFactory(x => x.Resolve<IServiceProvider>().GetAll<ITorrentSearcher>()))
-                .RegisterType<IIpTorrentsSearchClientFactory, IpTorrentsSearchClientFactory>(new ContainerControlledLifetimeManager())
+                .RegisterType<IIpTorrentsSearchClientFactory, IpTorrentsRssSearchClientFactory>(new ContainerControlledLifetimeManager())
                 .RegisterType<ITorrentSearchClient>(new ContainerControlledLifetimeManager(), new InjectionFactory(x => x.Resolve<IIpTorrentsSearchClientFactory>().GetClient()))
                 .RegisterType<IKickassTorrentsSearchClientFactory, KickassTorrentsSearchClientFactory>(new ContainerControlledLifetimeManager())
                 .RegisterType<IKickassTorrentsTorrentSearchClient>(new ContainerControlledLifetimeManager(), new InjectionFactory(x => x.Resolve<IKickassTorrentsSearchClientFactory>().GetClient()))
