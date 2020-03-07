@@ -93,6 +93,10 @@ namespace KrisG.SickBox.Core.Torrent.Searcher
         private string BuildDownloadPath(SearchResult item)
         {
             var fileName = item.Link.Substring(item.Link.LastIndexOf('/') + 1);
+            if (fileName.Contains("?"))
+            {
+                fileName = fileName.Substring(0, fileName.IndexOf("?"));
+            }
 
             var execFolder = AppDomain.CurrentDomain.BaseDirectory;
             var downloadFolder = Path.Combine(execFolder, "Torrents");

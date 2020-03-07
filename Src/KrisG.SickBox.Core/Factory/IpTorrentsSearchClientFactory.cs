@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using KrisG.IpTorrents.Client;
+﻿using KrisG.IpTorrents.Client;
 using KrisG.IpTorrents.Client.Interfaces;
 using KrisG.SickBox.Core.Configuration.Server;
 using KrisG.SickBox.Core.Interfaces.Enums;
 using KrisG.SickBox.Core.Interfaces.Factory;
 using KrisG.SickBox.Core.Interfaces.Service;
 using log4net;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+using System;
 
 namespace KrisG.SickBox.Core.Factory
 {
@@ -33,6 +30,17 @@ namespace KrisG.SickBox.Core.Factory
         }
 
         private ITorrentSearchClient BuildClient()
+        {
+            var serverConfig = _serverProvider.Get<IIpTorrentsRssConfig>(ServerType.IpTorrentsRss);
+
+            var ipTorrentsUrl = serverConfig.Url;
+            
+            _log.DebugFormat($"Creating IPTorrents Client [Url: {ipTorrentsUrl}]");
+
+            return TorrentRssSearchClient.Create(ipTorrentsUrl);
+        }
+
+        private ITorrentSearchClient BuildOldClient()
         {
             var serverConfig = _serverProvider.Get<IIpTorrentsConfig>(ServerType.IpTorrents);
 
