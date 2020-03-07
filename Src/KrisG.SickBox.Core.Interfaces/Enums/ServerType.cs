@@ -4,6 +4,7 @@
     {
         SickBeard,
         IpTorrents,
+        IpTorrentsRss,
         Plex
     }
 }

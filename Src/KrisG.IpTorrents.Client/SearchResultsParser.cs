@@ -1,22 +1,21 @@
-﻿using System;
+﻿using CsQuery;
+using KrisG.IpTorrents.Client.Data;
+using KrisG.IpTorrents.Client.Interfaces.Internal;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.Versioning;
-using CsQuery;
-using KrisG.IpTorrents.Client.Data;
-using KrisG.IpTorrents.Client.Interfaces.Internal;
 
 namespace KrisG.IpTorrents.Client
 {
     public class SearchResultsParser : ISearchResultsParser
     {
-        public IEnumerable<SearchResult> Parse(string htmlContent)
+        public IEnumerable<SearchResult> Parse(string content)
         {
-            var startIndex = htmlContent.IndexOf(@"<table id=torrents");
-            var endIndex = htmlContent.IndexOf(@"</table>", startIndex);
+            var startIndex = content.IndexOf(@"<table id=torrents");
+            var endIndex = content.IndexOf(@"</table>", startIndex);
 
-            var mainTableContent = htmlContent.Substring(startIndex, endIndex - startIndex);
+            var mainTableContent = content.Substring(startIndex, endIndex - startIndex);
 
             if (mainTableContent.Contains("No Torrents Found"))
             {
@@ -45,7 +44,8 @@ namespace KrisG.IpTorrents.Client
                     Convert.ToInt32(x[colLookup["Sort by Seeders"]].InnerText),
                     Convert.ToInt32(x[colLookup["Sort by Leechers"]].InnerText),
                     ParseLink(x[colLookup["Download"]]),
-                    ParseAlt(x[colLookup["Type"]])
+                    ParseAlt(x[colLookup["Type"]]),
+                    null
                 ))
                 .ToArray();
 
