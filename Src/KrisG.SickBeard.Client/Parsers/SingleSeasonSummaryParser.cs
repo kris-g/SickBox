@@ -16,6 +16,8 @@ namespace KrisG.SickBeard.Client.Parsers
             {
                 var parsed = data["data"]
                     .Children()
+                    .SelectMany(x => x.Children())
+                    .SelectMany(x => x.Children())
                     .OfType<JProperty>()
                     .Select(x => new { EpisodeNumber = int.Parse(x.Name), Values = x.Value })
                     .Select(x => new EpisodeSummary(

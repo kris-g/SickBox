@@ -28,8 +28,8 @@ namespace KrisG.SickBeard.Client.Parsers
                         x.Values["quality"].Value<string>(),
                         x.Values["show_name"].Value<string>(),
                         (ShowStatus)Enum.Parse(typeof(ShowStatus), x.Values["status"].Value<string>()),
-                        x.Values["tvrage_id"].Value<int>(),
-                        x.Values["tvrage_name"].Value<string>()
+                        x.Values["tvrage_id"]?.Value<int>() ?? 0,
+                        x.Values["tvrage_name"]?.Value<string>()
                         ))
                     .ToArray();
 
