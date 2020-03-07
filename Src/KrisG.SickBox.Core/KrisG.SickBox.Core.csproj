@@ -37,8 +37,12 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ArxOne.Ftp">
-      <HintPath>..\packages\ArxOne.Ftp.1.8.2.0\lib\net40-Client\ArxOne.Ftp.dll</HintPath>
+    <Reference Include="ArxOne.Ftp, Version=1.14.1.0, Culture=neutral, PublicKeyToken=da7223da01d9ab51, processorArchitecture=MSIL">
+      <HintPath>..\packages\ArxOne.Ftp.1.14.1\lib\net40-client\ArxOne.Ftp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FluentFTP, Version=31.3.1.0, Culture=neutral, PublicKeyToken=f4af092b1d8df44f, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentFTP.31.3.1\lib\net45\FluentFTP.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
@@ -58,6 +62,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Xml" />
@@ -90,6 +95,7 @@
     <Compile Include="Container.cs" />
     <Compile Include="DefaultDownloader.cs" />
     <Compile Include="FileSystem\FileSystemProvider.cs" />
+    <Compile Include="FileSystem\FtpsFileSystem.cs" />
     <Compile Include="FileSystem\LocalFileSystem.cs" />
     <Compile Include="JsonInterfaceTypeConverter.cs" />
     <Compile Include="PathProvider\RootFolderArchivePathProvider.cs" />

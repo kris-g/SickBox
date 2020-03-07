@@ -47,6 +47,7 @@ namespace KrisG.SickBox.Core.Torrent
                     {
                         fileStream.CopyTo(ftpStream);
                     }
+                    fileSystem.CompleteOperation();
                 }
             }
         }

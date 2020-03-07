@@ -11,6 +11,7 @@ namespace KrisG.SickBox.Core.Interfaces.FileSystem
 
         Stream OpenReadStream(string path);
         Stream OpenWriteStream(string path);
+        void CompleteOperation();
         bool DeleteFile(string path);
         IEnumerable<FileEntry> ListFiles(string directoryPath);
         IEnumerable<FileEntry> ListDirectories(string directoryPath);

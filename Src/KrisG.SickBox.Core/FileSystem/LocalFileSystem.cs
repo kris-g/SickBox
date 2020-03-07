@@ -26,6 +26,10 @@ namespace KrisG.SickBox.Core.FileSystem
             return File.OpenWrite(path);
         }
 
+        public void CompleteOperation()
+        {
+        }
+
         public bool DeleteFile(string path)
         {
             try

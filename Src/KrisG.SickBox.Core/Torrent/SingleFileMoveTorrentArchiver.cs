@@ -82,6 +82,8 @@ namespace KrisG.SickBox.Core.Torrent
                     }
                 }
                 sw.Stop();
+                torrentFileSystem.CompleteOperation();
+                archiveFileSystem.CompleteOperation();
 
                 var transferSpeed = new FileSize((long)(fileSize.Bytes / sw.Elapsed.TotalSeconds));
                 _log.InfoFormat("File copy finished [RemotePath: {0}, Size: {1}, CopyTime: {2}, TransferSpeed: {3}/s]",

@@ -40,6 +40,10 @@ namespace KrisG.SickBox.Core.FileSystem
             return _lazyClient.Value.Stor(new FtpPath(path));
         }
 
+        public void CompleteOperation()
+        {
+        }
+
         public bool DeleteFile(string path)
         {
             return _lazyClient.Value.Dele(new FtpPath(path));
