@@ -1,4 +1,4 @@
-﻿using System.IO;
+﻿using Shaman.Types;
 
 namespace KrisG.KickassTorrents.Client.Data
 {

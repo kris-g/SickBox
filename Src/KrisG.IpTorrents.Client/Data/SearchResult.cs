@@ -1,7 +1,7 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using Shaman.Types;
+using System;
 using System.Diagnostics;
-using System.IO;
 
 namespace KrisG.IpTorrents.Client.Data
 {

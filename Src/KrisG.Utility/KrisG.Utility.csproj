@@ -1,87 +1,14 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A68CA0D3-4E87-4203-9F41-A234D962079E}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KrisG.Utility</RootNamespace>
-    <AssemblyName>KrisG.Utility</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="Castle.Core">
-      <HintPath>..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity">
-      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
-    </Reference>
-    <Reference Include="Steveo.FileSize">
-      <HintPath>..\packages\FileSize.1.0.0\lib\net20\Steveo.FileSize.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Xml" />
+    <PackageReference Include="Castle.Core" Version="4.4.0" />
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Shaman.FileSize" Version="1.0.1.2" />
+    <PackageReference Include="Unity" Version="5.11.4" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Attributes\DefaultValueAttribute.cs" />
-    <Compile Include="Attributes\RequiredAttribute.cs" />
-    <Compile Include="Attributes\ServiceImplementationAttribute.cs" />
-    <Compile Include="Attributes\ServiceInterfaceAttribute.cs" />
-    <Compile Include="Interfaces\Configuration\IConfigurable.cs" />
-    <Compile Include="Interfaces\Configuration\IConfigurationReader.cs" />
-    <Compile Include="Interfaces\IRetryAction.cs" />
-    <Compile Include="Interfaces\IStreamCopier.cs" />
-    <Compile Include="Interfaces\Service\IConfigResolver.cs" />
-    <Compile Include="Interfaces\Service\IServiceProvider.cs" />
-    <Compile Include="Interfaces\Service\IServiceResolver.cs" />
-    <Compile Include="Interfaces\Web\IWebStreamProvider.cs" />
-    <Compile Include="LoggedStreamCopier.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RetryAction.cs" />
-    <Compile Include="Service\CommandLineConfigurationFileReader.cs" />
-    <Compile Include="Service\ConfigurationServiceProvider.cs" />
-    <Compile Include="Service\CustomConfigResolver.cs" />
-    <Compile Include="Service\ServiceResolver.cs" />
-    <Compile Include="Service\XmlSerializerConfigResolver.cs" />
-    <Compile Include="Web\WebStreamProvider.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>

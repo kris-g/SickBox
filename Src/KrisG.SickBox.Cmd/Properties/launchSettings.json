@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "KrisG.SickBox.Cmd": {
+      "commandName": "Project",
+      "commandLineArgs": "configuration.xml"
+    }
+  }
+}

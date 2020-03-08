@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using KrisG.SickBeard.Client.Data;
+﻿using KrisG.SickBeard.Client.Data;
 using KrisG.SickBeard.Client.Interfaces;
 using KrisG.SickBeard.Client.Parsers;
 using KrisG.Utility.Interfaces.Web;
 using KrisG.Utility.Web;
-using Microsoft.Practices.Unity;
+using System;
+using System.Collections.Generic;
+using Unity;
 
 namespace KrisG.SickBeard.Client
 {
@@ -23,7 +23,7 @@ namespace KrisG.SickBeard.Client
             var container = new UnityContainer();
 
             container
-                .RegisterType<ISickBeardClient>(new InjectionFactory(x => new SickBeardClient(x.Resolve<IWebStreamProvider>(), x.Resolve<IParserProvider>())))
+                .RegisterFactory<ISickBeardClient>(x => new SickBeardClient(x.Resolve<IWebStreamProvider>(), x.Resolve<IParserProvider>()))
                 .RegisterType<IWebStreamProvider, WebStreamProvider>()
                 .RegisterType<IParserProvider, ParserProvider>()
                 .RegisterType<IJsonDataParser<IEnumerable<EpisodeSummary>>, EpisodeSummariesParser>()

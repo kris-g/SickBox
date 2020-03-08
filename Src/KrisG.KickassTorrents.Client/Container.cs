@@ -1,10 +1,10 @@
-﻿using System;
-using KrisG.KickassTorrents.Client.Interfaces;
+﻿using KrisG.KickassTorrents.Client.Interfaces;
 using KrisG.KickassTorrents.Client.Interfaces.Internal;
 using KrisG.KickassTorrents.Client.Internal;
 using KrisG.Utility.Interfaces.Web;
 using KrisG.Utility.Web;
-using Microsoft.Practices.Unity;
+using System;
+using Unity;
 
 namespace KrisG.KickassTorrents.Client
 {
@@ -22,7 +22,7 @@ namespace KrisG.KickassTorrents.Client
             var container = new UnityContainer();
 
             container
-                .RegisterType<ITorrentSearchClient>(new InjectionFactory(x => new TorrentSearchClient(x.Resolve<ISearchResultsParser>(), x.Resolve<IWebStreamProvider>())))
+                .RegisterFactory<ITorrentSearchClient>(x => new TorrentSearchClient(x.Resolve<ISearchResultsParser>(), x.Resolve<IWebStreamProvider>()))
                 .RegisterType<ISearchResultsParser, SearchResultsParser>()
                 .RegisterType<IWebStreamProvider, WebStreamProvider>();
 

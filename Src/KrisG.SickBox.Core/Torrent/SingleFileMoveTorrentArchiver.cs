@@ -11,6 +11,7 @@ using KrisG.SickBox.Core.Interfaces.PathProvider;
 using KrisG.SickBox.Core.Interfaces.Torrent;
 using KrisG.Utility.Attributes;
 using log4net;
+using Shaman.Types;
 
 namespace KrisG.SickBox.Core.Torrent
 {

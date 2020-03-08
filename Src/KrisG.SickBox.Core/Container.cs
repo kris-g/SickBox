@@ -21,8 +21,10 @@ using KrisG.Utility.Interfaces.Configuration;
 using KrisG.Utility.Interfaces.Service;
 using KrisG.Utility.Service;
 using log4net;
-using Microsoft.Practices.Unity;
-using UnityLog4NetExtension.Log4Net;
+using Unity;
+using Unity.Injection;
+using Unity.Lifetime;
+using Unity.log4net;
 using IServiceProvider = KrisG.Utility.Interfaces.Service.IServiceProvider;
 using IIpTorrentsTorrentSearchClient = KrisG.IpTorrents.Client.Interfaces.ITorrentSearchClient;
 using IKickassTorrentsTorrentSearchClient = KrisG.KickassTorrents.Client.Interfaces.ITorrentSearchClient;
@@ -44,23 +46,23 @@ namespace KrisG.SickBox.Core
 
             container
                 .AddNewExtension<Log4NetExtension>()
-                .RegisterType<IDownloader>(new ContainerControlledLifetimeManager(), new InjectionFactory(BuildDownloader))
+                .RegisterFactory<IDownloader>(BuildDownloader, new ContainerControlledLifetimeManager())
                 .RegisterType<ISickBeardClientFactory, SickBeardClientFactory>(new ContainerControlledLifetimeManager())
-                .RegisterType<ISickBeardClient>(new ContainerControlledLifetimeManager(), new InjectionFactory(x => x.Resolve<ISickBeardClientFactory>().GetClient()))
-                .RegisterType<IEnumerable<IWantedEpisodeProvider>>(new ContainerControlledLifetimeManager(), new InjectionFactory(x => x.Resolve<IServiceProvider>().GetAll<IWantedEpisodeProvider>()))
-                .RegisterType<IEnumerable<ITorrentSearcher>>(new ContainerControlledLifetimeManager(), new InjectionFactory(x => x.Resolve<IServiceProvider>().GetAll<ITorrentSearcher>()))
+                .RegisterFactory<ISickBeardClient>(x => x.Resolve<ISickBeardClientFactory>().GetClient(), new ContainerControlledLifetimeManager())
+                .RegisterFactory<IEnumerable<IWantedEpisodeProvider>>(x => x.Resolve<IServiceProvider>().GetAll<IWantedEpisodeProvider>(), new ContainerControlledLifetimeManager())
+                .RegisterFactory<IEnumerable<ITorrentSearcher>>(x => x.Resolve<IServiceProvider>().GetAll<ITorrentSearcher>(), new ContainerControlledLifetimeManager())
                 .RegisterType<IIpTorrentsSearchClientFactory, IpTorrentsRssSearchClientFactory>(new ContainerControlledLifetimeManager())
-                .RegisterType<ITorrentSearchClient>(new ContainerControlledLifetimeManager(), new InjectionFactory(x => x.Resolve<IIpTorrentsSearchClientFactory>().GetClient()))
+                .RegisterFactory<ITorrentSearchClient>(x => x.Resolve<IIpTorrentsSearchClientFactory>().GetClient(), new ContainerControlledLifetimeManager())
                 .RegisterType<IKickassTorrentsSearchClientFactory, KickassTorrentsSearchClientFactory>(new ContainerControlledLifetimeManager())
-                .RegisterType<IKickassTorrentsTorrentSearchClient>(new ContainerControlledLifetimeManager(), new InjectionFactory(x => x.Resolve<IKickassTorrentsSearchClientFactory>().GetClient()))
-                .RegisterType<IShowNameProvider>(new ContainerControlledLifetimeManager(), new InjectionFactory(x => x.Resolve<IServiceProvider>().Get<IShowNameProvider>(true) ?? x.Resolve<ShowNameProvider>()))
+                .RegisterFactory<IKickassTorrentsTorrentSearchClient>(x => x.Resolve<IKickassTorrentsSearchClientFactory>().GetClient(), new ContainerControlledLifetimeManager())
+                .RegisterFactory<IShowNameProvider>(x => x.Resolve<IServiceProvider>().Get<IShowNameProvider>(true) ?? x.Resolve<ShowNameProvider>())
                 .RegisterType<IEpisodeMatcher, RegexEpisodeMatcher>(new ContainerControlledLifetimeManager())
-                .RegisterType<ITorrentDownloadStart>(new ContainerControlledLifetimeManager(), new InjectionFactory(x => x.Resolve<IServiceProvider>().Get<ITorrentDownloadStart>()))
-                .RegisterType<ITorrentCompleteNotifier>(new ContainerControlledLifetimeManager(), new InjectionFactory(x => x.Resolve<IServiceProvider>().Get<ITorrentCompleteNotifier>()))
-                .RegisterType<ITorrentDownloadArchiver>(new ContainerControlledLifetimeManager(), new InjectionFactory(x => x.Resolve<IServiceProvider>().Get<ITorrentDownloadArchiver>(true)))
-                .RegisterType<IArchivePathProvider>(new ContainerControlledLifetimeManager(), new InjectionFactory(x => x.Resolve<IServiceProvider>().Get<IArchivePathProvider>()))
+                .RegisterFactory<ITorrentDownloadStart>(x => x.Resolve<IServiceProvider>().Get<ITorrentDownloadStart>(), new ContainerControlledLifetimeManager())
+                .RegisterFactory<ITorrentCompleteNotifier>(x => x.Resolve<IServiceProvider>().Get<ITorrentCompleteNotifier>(), new ContainerControlledLifetimeManager())
+                .RegisterFactory<ITorrentDownloadArchiver>(x => x.Resolve<IServiceProvider>().Get<ITorrentDownloadArchiver>(true), new ContainerControlledLifetimeManager())
+                .RegisterFactory<IArchivePathProvider>(x => x.Resolve<IServiceProvider>().Get<IArchivePathProvider>(), new ContainerControlledLifetimeManager())
                 .RegisterType<IStreamCopier, LoggedStreamCopier>(new ContainerControlledLifetimeManager())
-                .RegisterType<IEnumerable<ITorrentPostProcessor>>(new ContainerControlledLifetimeManager(), new InjectionFactory(x => x.Resolve<IServiceProvider>().GetAll<ITorrentPostProcessor>(true)))
+                .RegisterFactory<IEnumerable<ITorrentPostProcessor>>(x => x.Resolve<IServiceProvider>().GetAll<ITorrentPostProcessor>(true), new ContainerControlledLifetimeManager())
                 .RegisterType<IWebStreamProvider, WebStreamProvider>(new ContainerControlledLifetimeManager())
                 .RegisterType<IConfigurationReader, CommandLineConfigurationFileReader>(new ContainerControlledLifetimeManager())
                 .RegisterType<IServiceProvider, ConfigurationServiceProvider>(new ContainerControlledLifetimeManager())
@@ -68,8 +70,7 @@ namespace KrisG.SickBox.Core
                 .RegisterType<IConfigResolver, CustomConfigResolver>(new ContainerControlledLifetimeManager())
                 .RegisterType<IServerProvider, ConfigurationServerProvider>(new ContainerControlledLifetimeManager())
                 .RegisterType<IFileSystemProvider, FileSystemProvider>(new ContainerControlledLifetimeManager())
-                .RegisterType<IRetryAction, RetryAction>(new ContainerControlledLifetimeManager())
-                ;
+                .RegisterType<IRetryAction, RetryAction>(new ContainerControlledLifetimeManager());
 
             return container;
         }

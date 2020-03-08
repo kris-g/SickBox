@@ -1,16 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using KrisG.SickBox.Core.Configuration.TorrentPostProcessor;
+﻿using KrisG.SickBox.Core.Configuration.TorrentPostProcessor;
 using KrisG.SickBox.Core.Interfaces.Data.Torrent;
 using KrisG.SickBox.Core.Interfaces.Torrent;
 using KrisG.Utility.Attributes;
 using KrisG.Utility.Interfaces.Configuration;
 using log4net;
-using Microsoft.Practices.ObjectBuilder2;
-using PushbulletSharp;
-using PushbulletSharp.Models.Requests;
-using PushbulletSharp.Models.Responses;
+using PushBulletSharp.Core;
+using PushBulletSharp.Core.Models.Requests;
+using PushBulletSharp.Core.Models.Responses;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using KrisG.Utility.Extensions;
 
 namespace KrisG.SickBox.Core.Torrent.PostProcessor
 {
@@ -32,7 +33,7 @@ namespace KrisG.SickBox.Core.Torrent.PostProcessor
 
             try
             {
-                var client = new PushbulletClient(Config.AccessToken);
+                var client = new PushBulletClient(Config.AccessToken);
 
                 var currentUserInformation = client.CurrentUsersInformation();
 
@@ -45,7 +46,8 @@ namespace KrisG.SickBox.Core.Torrent.PostProcessor
                         Body = torrentsArray.Select(x => x.DownloadFileName).JoinStrings(Environment.NewLine)
                     };
 
-                    PushResponse response = client.PushNote(request);
+                    Task<PushResponse> response = client.PushNote(request);
+                    response.Wait();
                     _log.InfoFormat("Pushbullet notification sent to {0}", Config.AccountEmailAddress);
                 }
 

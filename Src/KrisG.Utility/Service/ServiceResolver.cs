@@ -1,10 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.Xml.Linq;
-using KrisG.Utility.Attributes;
+﻿using KrisG.Utility.Attributes;
 using KrisG.Utility.Interfaces.Configuration;
 using KrisG.Utility.Interfaces.Service;
-using Microsoft.Practices.Unity;
+using System;
+using System.Linq;
+using System.Xml.Linq;
+using Unity;
 
 namespace KrisG.Utility.Service
 {

@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using KrisG.KickassTorrents.Client.Data;
+using KrisG.KickassTorrents.Client.Interfaces.Internal;
+using Shaman.Types;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
-using KrisG.KickassTorrents.Client.Data;
-using KrisG.KickassTorrents.Client.Interfaces.Internal;
 
 namespace KrisG.KickassTorrents.Client.Internal
 {

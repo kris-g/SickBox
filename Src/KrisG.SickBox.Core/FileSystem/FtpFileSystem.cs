@@ -10,6 +10,7 @@ using KrisG.SickBox.Core.Interfaces.Enums;
 using KrisG.SickBox.Core.Interfaces.FileSystem;
 using KrisG.Utility.Attributes;
 using KrisG.Utility.Interfaces.Configuration;
+using Shaman.Types;
 
 namespace KrisG.SickBox.Core.FileSystem
 {

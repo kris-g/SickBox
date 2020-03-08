@@ -2,6 +2,7 @@
 using System.IO;
 using KrisG.SickBox.Core.Interfaces.Data.FileSystem;
 using KrisG.SickBox.Core.Interfaces.Enums;
+using Shaman.Types;
 
 namespace KrisG.SickBox.Core.Interfaces.FileSystem
 {

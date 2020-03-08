@@ -1,5 +1,5 @@
 ﻿using KrisG.SickBeard.Client.Interfaces;
-using Microsoft.Practices.Unity;
+using Unity;
 
 namespace KrisG.SickBeard.Client
 {

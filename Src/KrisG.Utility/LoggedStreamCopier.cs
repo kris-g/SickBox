@@ -2,6 +2,7 @@
 using System.IO;
 using KrisG.Utility.Interfaces;
 using log4net;
+using Shaman.Types;
 
 namespace KrisG.Utility
 {

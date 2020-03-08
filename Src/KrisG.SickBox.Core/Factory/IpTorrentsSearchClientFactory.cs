@@ -41,7 +41,8 @@ namespace KrisG.SickBox.Core.Factory
             _log.DebugFormat("Creating IPTorrents Client [Url: {0}, Username: {1}, Password: {2}]",
                 ipTorrentsUrl, ipTorrentsUsername, ipTorrentsPassword);
 
-            return TorrentSearchClient.Create(ipTorrentsUrl, ipTorrentsUsername, ipTorrentsPassword, ipTorrentsProxyConfig);
+            throw new Exception();
+            //return TorrentSearchClient.Create(ipTorrentsUrl, ipTorrentsUsername, ipTorrentsPassword, ipTorrentsProxyConfig);
         }
     }
 }

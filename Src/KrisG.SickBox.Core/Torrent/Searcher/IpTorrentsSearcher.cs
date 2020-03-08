@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using KrisG.IpTorrents.Client.Data;
+﻿using KrisG.IpTorrents.Client.Data;
 using KrisG.IpTorrents.Client.Interfaces;
 using KrisG.SickBox.Core.Configuration.TorrentSearcher;
 using KrisG.SickBox.Core.Interfaces.Data.Torrent;
@@ -9,10 +6,13 @@ using KrisG.SickBox.Core.Interfaces.Factory;
 using KrisG.SickBox.Core.Interfaces.SickBeard;
 using KrisG.SickBox.Core.Interfaces.Torrent;
 using KrisG.Utility.Attributes;
+using KrisG.Utility.Extensions;
 using KrisG.Utility.Interfaces.Configuration;
 using log4net;
-using Microsoft.Practices.ObjectBuilder2;
 using Newtonsoft.Json;
+using System;
+using System.IO;
+using System.Linq;
 
 namespace KrisG.SickBox.Core.Torrent.Searcher
 {
