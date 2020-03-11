@@ -62,7 +62,7 @@
     <Compile Include="Parsers\HistoryParser.cs" />
     <Compile Include="Parsers\ShowDetailsParser.cs" />
     <Compile Include="Parsers\ShowRefreshResponseParser.cs" />
-    <Compile Include="Parsers\SingleSeasonSummaryParser.cs" />
+    <Compile Include="Parsers\EpisodeSummariesParser.cs" />
     <Compile Include="Parsers\ShowsParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
