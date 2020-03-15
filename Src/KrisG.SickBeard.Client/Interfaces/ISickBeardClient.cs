@@ -11,7 +11,7 @@ namespace KrisG.SickBeard.Client.Interfaces
         IEnumerable<HistoryEntry> History(int? limit);
         ShowDetails Show(int id);
         bool ShowRefresh(int id);
-        void ShowFixFileNames(int id);
         IEnumerable<int> ShowSeasonList(int id);
+        void FixFileNames(int showId, IEnumerable<(int season, int episode)> episodes);
     }
 }
