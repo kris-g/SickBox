@@ -5,9 +5,11 @@ using System.IO;
 using System.Linq;
 using KrisG.SickBeard.Client.Data;
 using KrisG.SickBeard.Client.Interfaces;
+using KrisG.Utility.Extensions;
 using KrisG.Utility.Interfaces.Web;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using RestSharp;
 
 namespace KrisG.SickBeard.Client
 {
@@ -147,11 +149,19 @@ namespace KrisG.SickBeard.Client
             }
         }
 
-        public void ShowFixFileNames(int id)
+        public void FixFileNames(int showId, IEnumerable<(int season, int episode)> episodes)
         {
-            // hacky mechanism as the api doesn't directly support this command
-            var url = string.Format("{0}/home/fixEpisodeNames?show={1}", _url, id);
-            var stream = _webStreamProvider.GetStream(url);
+            var client = new RestClient($"{_url}/home/doRename");
+            var request = new RestRequest();
+
+            request.AddParameter("show", showId.ToString());
+            request.AddParameter("eps", episodes.Select(ep => $"{ep.season}x{ep.episode}").JoinStrings("|"));
+
+            var response = client.Post(request);
+            if (!response.IsSuccessful)
+            {
+                throw new InvalidOperationException("Request failed", response.ErrorException);
+            }
         }
 
         private string BuildUrl(string cmd, ICollection<Tuple<string, string>> args = null)

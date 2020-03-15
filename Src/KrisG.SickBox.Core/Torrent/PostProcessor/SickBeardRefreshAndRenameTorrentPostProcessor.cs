@@ -53,25 +53,38 @@ namespace KrisG.SickBox.Core.Torrent.PostProcessor
                 {
                     _log.ErrorFormat("SickBeard refresh failed: {0}", ex.Message);
                 }
+            }
 
+            var sickbeardRenameJobs = torrents
+                .GroupBy(
+                    x => x.Episode.ShowId,
+                    (show, grp) => new
+                    {
+                        grp.First().Episode.ShowName,
+                        ShowId = show, Episodes = grp.Select(x => (x.Episode.SeasonNumber, x.Episode.EpisodeNumber))
+                    });
+
+            foreach (var renameJob in sickbeardRenameJobs)
+            {
                 try
                 {
-                    _retryAction.DoWithRetries(() => RenameFiles(job.Id, job.ShowName, client), numberOfRetries, delayBetweenRetries);
+                    _retryAction.DoWithRetries(() => RenameFiles(renameJob.ShowName, renameJob.ShowId, renameJob.Episodes, client), numberOfRetries, delayBetweenRetries);
                 }
                 catch (Exception ex)
                 {
                     _log.ErrorFormat("SickBeard files rename failed: {0}", ex.Message);
                 }
+                
             }
 
             _log.InfoFormat("Sleeping for 20secs to allow SickBeard time to finish renames");
             Thread.Sleep(20000);            
         }
 
-        private void RenameFiles(int id, string showName, ISickBeardClient client)
+        private void RenameFiles(string showName, int showId, IEnumerable<(int SeasonNumber, int EpisodeNumber)> episodes, ISickBeardClient client)
         {
-            _log.InfoFormat("Triggering files rename in SickBeard [{0}]", JsonConvert.SerializeObject(new { Id = id, ShowName = showName }, Formatting.None));
-            client.ShowFixFileNames(id);
+            _log.InfoFormat("Triggering files rename in SickBeard [{0}]", JsonConvert.SerializeObject(new { Id = showId, ShowName = showName }, Formatting.None));
+            client.FixFileNames(showId, episodes);
         }
 
         private void RefreshShow(int id, string showName, ISickBeardClient client)
