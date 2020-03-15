@@ -11,7 +11,7 @@ namespace KrisG.IpTorrents.Client
 {
     public class TorrentRssSearchClient : ITorrentSearchClient
     {
-        private const string _cacheFilePath = @".\IpTorrentRssDataCache.json";
+        private const string _cacheFilePath = @"/config/IpTorrentRssDataCache.json";
 
         private IReadOnlyCollection<SearchResult> _searchResults;
 

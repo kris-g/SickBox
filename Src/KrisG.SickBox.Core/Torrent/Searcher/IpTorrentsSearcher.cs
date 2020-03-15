@@ -102,6 +102,11 @@ namespace KrisG.SickBox.Core.Torrent.Searcher
             var downloadFolder = Path.Combine(execFolder, "Torrents");
             var downloadPath = Path.Combine(downloadFolder, fileName);
 
+            if (!Directory.Exists(downloadFolder))
+            {
+                Directory.CreateDirectory(downloadFolder);
+            }
+
             return downloadPath;
         }
     }

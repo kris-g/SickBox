@@ -9,20 +9,14 @@ namespace KrisG.Utility.Service
     {
         public XDocument Read()
         {
-            var args = Environment.GetCommandLineArgs();
+            var path = @"/config/configuration.xml";
 
-            if (args.Length < 2)
+            if (!File.Exists(path))
             {
-                throw new InvalidOperationException("No command args found for loading configuration file");
+                throw new InvalidOperationException($"Configuration file not found [Path: {path}]");
             }
 
-            var configPath = args[1];
-            if (!File.Exists(configPath))
-            {
-                throw new InvalidOperationException(string.Format("Command arg configuration path {0} does not exist", configPath));
-            }
-
-            return XDocument.Load(File.OpenText(configPath));
+            return XDocument.Load(File.OpenText(path));
         }
     }
 }
