@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using KrisG.IpTorrents.Client;
 using KrisG.IpTorrents.Client.Interfaces;
 using KrisG.SickBeard.Client.Interfaces;
 using KrisG.Utility;
@@ -52,7 +53,7 @@ namespace KrisG.SickBox.Core
                 .RegisterFactory<IEnumerable<IWantedEpisodeProvider>>(x => x.Resolve<IServiceProvider>().GetAll<IWantedEpisodeProvider>(), new ContainerControlledLifetimeManager())
                 .RegisterFactory<IEnumerable<ITorrentSearcher>>(x => x.Resolve<IServiceProvider>().GetAll<ITorrentSearcher>(), new ContainerControlledLifetimeManager())
                 .RegisterType<IIpTorrentsSearchClientFactory, IpTorrentsRssSearchClientFactory>(new ContainerControlledLifetimeManager())
-                .RegisterFactory<ITorrentSearchClient>(x => x.Resolve<IIpTorrentsSearchClientFactory>().GetClient(), new ContainerControlledLifetimeManager())
+                .RegisterFactory<IIpTorrentsTorrentSearchClient>(x => x.Resolve<IIpTorrentsSearchClientFactory>().GetClient(), new ContainerControlledLifetimeManager())
                 .RegisterType<IKickassTorrentsSearchClientFactory, KickassTorrentsSearchClientFactory>(new ContainerControlledLifetimeManager())
                 .RegisterFactory<IKickassTorrentsTorrentSearchClient>(x => x.Resolve<IKickassTorrentsSearchClientFactory>().GetClient(), new ContainerControlledLifetimeManager())
                 .RegisterFactory<IShowNameProvider>(x => x.Resolve<IServiceProvider>().Get<IShowNameProvider>(true) ?? x.Resolve<ShowNameProvider>())
@@ -87,6 +88,7 @@ namespace KrisG.SickBox.Core
                     container.Resolve<ITorrentCompleteNotifier>(),
                     container.Resolve<ITorrentDownloadArchiver>(),
                     container.Resolve<IEnumerable<ITorrentPostProcessor>>(),
+                    container.Resolve<IServerProvider>(),
                     logger);
             }
             catch (Exception ex)
