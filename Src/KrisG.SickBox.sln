@@ -3,23 +3,27 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KrisG.SickBox.Cmd", "KrisG.SickBox.Cmd\KrisG.SickBox.Cmd.csproj", "{FBBE0C9D-9178-4AC5-A868-FC082EAAD077}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KrisG.SickBox.Cmd", "KrisG.SickBox.Cmd\KrisG.SickBox.Cmd.csproj", "{FBBE0C9D-9178-4AC5-A868-FC082EAAD077}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KrisG.IpTorrents.Client", "KrisG.IpTorrents.Client\KrisG.IpTorrents.Client.csproj", "{2CDA2A10-9C5B-446A-87E8-CA7431CAF9CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KrisG.IpTorrents.Client", "KrisG.IpTorrents.Client\KrisG.IpTorrents.Client.csproj", "{2CDA2A10-9C5B-446A-87E8-CA7431CAF9CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KrisG.IpTorrents.Client.Test", "KrisG.IpTorrents.Client.Test\KrisG.IpTorrents.Client.Test.csproj", "{FD46DB06-CED8-4875-BD1D-634DC153FB80}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KrisG.IpTorrents.Client.Test", "KrisG.IpTorrents.Client.Test\KrisG.IpTorrents.Client.Test.csproj", "{FD46DB06-CED8-4875-BD1D-634DC153FB80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KrisG.KickassTorrents.Client", "KrisG.KickassTorrents.Client\KrisG.KickassTorrents.Client.csproj", "{89FD6924-A61E-4E9A-A3A6-16102C1ED97F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KrisG.KickassTorrents.Client", "KrisG.KickassTorrents.Client\KrisG.KickassTorrents.Client.csproj", "{89FD6924-A61E-4E9A-A3A6-16102C1ED97F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KrisG.KickassTorrents.Client.Test", "KrisG.KickassTorrents.Client.Test\KrisG.KickassTorrents.Client.Test.csproj", "{9F18D5E8-1122-4545-AA5C-3821AB6C4B3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KrisG.KickassTorrents.Client.Test", "KrisG.KickassTorrents.Client.Test\KrisG.KickassTorrents.Client.Test.csproj", "{9F18D5E8-1122-4545-AA5C-3821AB6C4B3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KrisG.SickBeard.Client", "KrisG.SickBeard.Client\KrisG.SickBeard.Client.csproj", "{177C4E41-BFC6-45E3-8491-2A3329455016}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KrisG.SickBeard.Client", "KrisG.SickBeard.Client\KrisG.SickBeard.Client.csproj", "{177C4E41-BFC6-45E3-8491-2A3329455016}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KrisG.SickBox.Core", "KrisG.SickBox.Core\KrisG.SickBox.Core.csproj", "{461E43B7-E138-4D1F-9CFB-53C0F76FF293}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KrisG.SickBox.Core", "KrisG.SickBox.Core\KrisG.SickBox.Core.csproj", "{461E43B7-E138-4D1F-9CFB-53C0F76FF293}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KrisG.SickBox.Core.Interfaces", "KrisG.SickBox.Core.Interfaces\KrisG.SickBox.Core.Interfaces.csproj", "{750ABA74-9E8B-4739-BA4B-4E414C2CC94D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KrisG.SickBox.Core.Interfaces", "KrisG.SickBox.Core.Interfaces\KrisG.SickBox.Core.Interfaces.csproj", "{750ABA74-9E8B-4739-BA4B-4E414C2CC94D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KrisG.Utility", "KrisG.Utility\KrisG.Utility.csproj", "{56E72E04-F5DA-4EC3-B990-D81D43F02C7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KrisG.Utility", "KrisG.Utility\KrisG.Utility.csproj", "{56E72E04-F5DA-4EC3-B990-D81D43F02C7A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KrisG.SickBox.WorkerService", "KrisG.SickBox.WorkerService\KrisG.SickBox.WorkerService.csproj", "{A3F74A22-07FA-4476-A00E-A04C870F64AD}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{8AD18D98-7579-4F8A-83D3-4D342ECFC9F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +67,14 @@ Global
 		{56E72E04-F5DA-4EC3-B990-D81D43F02C7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56E72E04-F5DA-4EC3-B990-D81D43F02C7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56E72E04-F5DA-4EC3-B990-D81D43F02C7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3F74A22-07FA-4476-A00E-A04C870F64AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3F74A22-07FA-4476-A00E-A04C870F64AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3F74A22-07FA-4476-A00E-A04C870F64AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3F74A22-07FA-4476-A00E-A04C870F64AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AD18D98-7579-4F8A-83D3-4D342ECFC9F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AD18D98-7579-4F8A-83D3-4D342ECFC9F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AD18D98-7579-4F8A-83D3-4D342ECFC9F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AD18D98-7579-4F8A-83D3-4D342ECFC9F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

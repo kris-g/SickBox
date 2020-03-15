@@ -3,6 +3,9 @@
     "KrisG.SickBox.Cmd": {
       "commandName": "Project",
       "commandLineArgs": "configuration.xml"
+    },
+    "Docker": {
+      "commandName": "Docker"
     }
   }
 }

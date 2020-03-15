@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+  krisg.sickbox.workerservice:
+    image: ${DOCKER_REGISTRY-}krisgsickboxworkerservice
+    build:
+      context: .
+      dockerfile: KrisG.SickBox.WorkerService/Dockerfile
+    volumes:
+      - D:\SickBox\config:/config
+      - D:\SickBox\logs:/logs
+
