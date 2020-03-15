@@ -3,6 +3,7 @@ using KrisG.IpTorrents.Client.Internal;
 using System;
 using log4net;
 using Unity;
+using Unity.Lifetime;
 
 namespace KrisG.IpTorrents.Client
 {
@@ -20,7 +21,7 @@ namespace KrisG.IpTorrents.Client
             var container = new UnityContainer();
 
             container
-                .RegisterFactory<TorrentRssSearchClient>(x => new TorrentRssSearchClient(x.Resolve<RssDataParser>(), x.Resolve<WebStreamProvider>(), LogManager.GetLogger(typeof(TorrentRssSearchClient))))
+                .RegisterFactory<TorrentRssSearchClient>(x => new TorrentRssSearchClient(x.Resolve<RssDataParser>(), x.Resolve<WebStreamProvider>(), LogManager.GetLogger(typeof(TorrentRssSearchClient))), new ContainerControlledLifetimeManager())
                 //.RegisterFactory<TorrentSearchClient>(x => new TorrentSearchClient(x.Resolve<ISearchResultsParser>(), x.Resolve<IFormAuthenticatedWebStreamProvider>()))
                 //.RegisterType<ISearchResultsParser, SearchResultsParser>()
                 .RegisterType<IFormAuthenticatedWebStreamProvider, FormAuthenticatedWebStreamProvider>();

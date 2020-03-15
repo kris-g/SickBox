@@ -1,7 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using KrisG.IpTorrents.Client;
+using KrisG.IpTorrents.Client.Interfaces;
+using KrisG.SickBox.Core.Configuration.Server;
 using KrisG.SickBox.Core.Interfaces;
+using KrisG.SickBox.Core.Interfaces.Enums;
+using KrisG.SickBox.Core.Interfaces.Service;
 using KrisG.SickBox.Core.Interfaces.SickBeard;
 using KrisG.SickBox.Core.Interfaces.Torrent;
 using KrisG.Utility.Attributes;
@@ -17,6 +22,7 @@ namespace KrisG.SickBox.Core
         private readonly ITorrentCompleteNotifier _torrentCompleteNotifier;
         private readonly ITorrentDownloadArchiver _downloadArchiver;
         private readonly IEnumerable<ITorrentPostProcessor> _postProcessors;
+        private readonly IServerProvider _serverProvider;
         private readonly ILog _log;
 
         public static IDownloader Create()
@@ -31,6 +37,7 @@ namespace KrisG.SickBox.Core
             ITorrentCompleteNotifier torrentCompleteNotifier,
             ITorrentDownloadArchiver downloadArchiver,
             IEnumerable<ITorrentPostProcessor> postProcessors,
+            IServerProvider serverProvider,
             ILog log)
         {
             _wantedEpisodeProviders = wantedEpisodeProviders;
@@ -39,6 +46,7 @@ namespace KrisG.SickBox.Core
             _torrentCompleteNotifier = torrentCompleteNotifier;
             _downloadArchiver = downloadArchiver;
             _postProcessors = postProcessors;
+            _serverProvider = serverProvider;
             _log = log;
         }
 
@@ -46,6 +54,10 @@ namespace KrisG.SickBox.Core
         {
             try
             {
+                // hack: trying to trigger cache load/appendn on each execute
+                var rssConfig = _serverProvider.Get<IIpTorrentsRssConfig>(ServerType.IpTorrentsRss);
+                TorrentRssSearchClient.Create(rssConfig.Url);
+
                 var wantedEpisodes = _wantedEpisodeProviders
                     .SelectMany(x => x.FetchEpisodes())
                     // take an arbitrary distinct set of items, in case different services return dupes
