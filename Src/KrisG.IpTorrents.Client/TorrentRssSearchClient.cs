@@ -60,6 +60,8 @@ namespace KrisG.IpTorrents.Client
 
         public IEnumerable<SearchResult> Search(string query)
         {
+            query = query.Replace("(", "");
+            query = query.Replace(")", "");
             return _searchResults.Where(sr => query.ToLower().Split(' ').Where(qw => qw.Length > 1).All(qw => sr.Name.ToLower().Contains(qw)));
         }
 
