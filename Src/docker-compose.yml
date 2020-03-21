@@ -6,7 +6,4 @@ services:
     build:
       context: .
       dockerfile: KrisG.SickBox.WorkerService/Dockerfile
-    volumes:
-      - D:\SickBox\config:/config
-      - D:\SickBox\logs:/logs
 
