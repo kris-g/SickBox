@@ -19,7 +19,7 @@ namespace KrisG.SickBox.Core.WantedEpisodeProvider
     [ServiceImplementation("RecentWanted")]
     public class RecentWantedEpisodeProvider : IWantedEpisodeProvider, IConfigurable<IRecentWantedEpisodeProviderConfig>
     {
-        private const int NumberOfAttempts = 3;
+        private const int NumberOfAttempts = 5;
         private readonly TimeSpan _delayBetweenRetries;
 
         private readonly IRetryAction _retryAction;
@@ -33,7 +33,7 @@ namespace KrisG.SickBox.Core.WantedEpisodeProvider
             IRetryAction retryAction,
             ILog log)
         {
-            _delayBetweenRetries = TimeSpan.FromSeconds(5);
+            _delayBetweenRetries = TimeSpan.FromSeconds(10);
             _sickBeardClient = clientFactory.GetClient();            
             
             _retryAction = retryAction;
