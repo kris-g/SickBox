@@ -21,7 +21,7 @@ namespace KrisG.SickBeard.Client.Parsers
                     .Select(x => new EpisodeSummary(
                         x.EpisodeNumber,
                         x.Values["name"].Value<string>(),
-                        string.IsNullOrWhiteSpace(x.Values["airdate"].Value<string>()) ? null : x.Values["airdate"].Value<DateTime?>(),
+                        AirDateIsValid(x.Values["airdate"].Value<string>()) ? x.Values["airdate"].Value<DateTime?>() : null,
                         x.Values["quality"].Value<string>(),
                         (EpisodeStatus) Enum.Parse(typeof(EpisodeStatus), x.Values["status"].Value<string>())
                         ))
@@ -31,6 +31,11 @@ namespace KrisG.SickBeard.Client.Parsers
             }
 
             return Enumerable.Empty<EpisodeSummary>();
+        }
+
+        private bool AirDateIsValid(string value)
+        {
+            return !string.IsNullOrWhiteSpace(value) && !value.Equals("never", StringComparison.InvariantCultureIgnoreCase);
         }
     }
 }
