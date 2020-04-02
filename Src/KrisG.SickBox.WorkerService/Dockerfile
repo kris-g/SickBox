@@ -1,9 +1,9 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-FROM mcr.microsoft.com/dotnet/core/runtime:3.1-buster-slim AS base
+FROM mcr.microsoft.com/dotnet/core/runtime:3.1 AS base
 WORKDIR /app
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
 WORKDIR /src
 COPY ["KrisG.SickBox.WorkerService/KrisG.SickBox.WorkerService.csproj", "KrisG.SickBox.WorkerService/"]
 COPY ["KrisG.SickBox.Core/KrisG.SickBox.Core.csproj", "KrisG.SickBox.Core/"]
