@@ -27,3 +27,14 @@ steps:
     command: 'build'
     projects: '**/*.csproj'
     arguments: '-c Release'
+
+- task: Docker@2
+  inputs:
+    containerRegistry: 'Docker TreeScale'
+    repository: 'krisg.sickbox.workerservice'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
+    buildContext: './'
+    tags: |
+      $(Build.BuildId)
+      latest
