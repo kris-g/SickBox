@@ -36,7 +36,7 @@ steps:
 - task: Docker@2
   inputs:
     containerRegistry: 'Docker TreeScale'
-    repository: 'krisg.sickbox.workerservice'
+    repository: 'kris_g/krisg.sickbox.workerservice'
     command: 'buildAndPush'
     Dockerfile: './Src/KrisG.SickBox.WorkerService/Dockerfile'
     buildContext: './Src'
