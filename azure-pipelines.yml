@@ -10,23 +10,23 @@ pool:
   vmImage: 'ubuntu-18.04'
 
 steps:
-- task: UseDotNet@2
-  displayName: 'Install .NET Core SDK'
-  inputs:
-    version: 3.1.x
+# - task: UseDotNet@2
+#   displayName: 'Install .NET Core SDK'
+#   inputs:
+#     version: 3.1.x
 
-- task: DotNetCoreCLI@2
-  displayName: 'Restore'
-  inputs:
-    command: 'restore'
-    projects: '**/*.csproj'
+# - task: DotNetCoreCLI@2
+#   displayName: 'Restore'
+#   inputs:
+#     command: 'restore'
+#     projects: '**/*.csproj'
 
-- task: DotNetCoreCLI@2
-  displayName: 'Build'
-  inputs:
-    command: 'build'
-    projects: '**/*.csproj'
-    arguments: '-c Release'
+# - task: DotNetCoreCLI@2
+#   displayName: 'Build'
+#   inputs:
+#     command: 'build'
+#     projects: '**/*.csproj'
+#     arguments: '-c Release'
 
 - task: Docker@2
   inputs:
@@ -36,10 +36,9 @@ steps:
 - task: Docker@2
   inputs:
     containerRegistry: 'Docker TreeScale'
-    repository: 'repo.treescale.com/kris_g/krisg.sickbox.workerservice'
+    repository: 'krisg.sickbox.workerservice'
     command: 'buildAndPush'
     Dockerfile: './Src/KrisG.SickBox.WorkerService/Dockerfile'
     buildContext: './Src'
     tags: |
-      $(Build.BuildId)
       latest
