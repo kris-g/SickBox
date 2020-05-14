@@ -30,15 +30,14 @@ steps:
 
 - task: Docker@2
   inputs:
-    containerRegistry: 'Docker TreeScale'
+    containerRegistry: 'Docker Hub (kr1sg)'
     command: 'login'
 
 - task: Docker@2
   inputs:
-    containerRegistry: 'Docker TreeScale'
+    containerRegistry: 'Docker Hub (kr1sg)'
     repository: 'kris_g/krisg.sickbox.workerservice'
     command: 'buildAndPush'
     Dockerfile: './Src/KrisG.SickBox.WorkerService/Dockerfile'
     buildContext: './Src'
-    tags: |
-      latest
+    tags: 'latest'
