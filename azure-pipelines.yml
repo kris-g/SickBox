@@ -33,6 +33,7 @@ steps:
     containerRegistry: 'Docker Hub (kr1sg)'
     command: 'login'
 
+- script: 'docker buildx create --use multibuilder'
 - script: 'docker buildx build -f ./Src/KrisG.SickBox.WorkerService/Dockerfile -t kr1sg/krisg.sickbox.workerservice:latest --platform linux/amd64,linux/arm/v7,linux/arm64/v8 ./Src'
 
 # - task: Docker@2
