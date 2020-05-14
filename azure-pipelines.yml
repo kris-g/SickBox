@@ -28,18 +28,18 @@ steps:
 #     projects: '**/*.csproj'
 #     arguments: '-c Release'
 
-- script: 'docker buildx'
-
 - task: Docker@2
   inputs:
     containerRegistry: 'Docker Hub (kr1sg)'
     command: 'login'
 
-- task: Docker@2
-  inputs:
-    containerRegistry: 'Docker Hub (kr1sg)'
-    repository: 'kr1sg/krisg.sickbox.workerservice'
-    command: 'buildAndPush'
-    Dockerfile: './Src/KrisG.SickBox.WorkerService/Dockerfile'
-    buildContext: './Src'
-    tags: 'latest'
+- script: 'docker buildx build -f ./Src/KrisG.SickBox.WorkerService/Dockerfile -t kr1sg/krisg.sickbox.workerservice:latest --platform linux/amd64,linux/arm/v7,linux/arm64/v8 ./Src'
+
+# - task: Docker@2
+#   inputs:
+#     containerRegistry: 'Docker Hub (kr1sg)'
+#     repository: 'kr1sg/krisg.sickbox.workerservice'
+#     command: 'buildAndPush'
+#     Dockerfile: './Src/KrisG.SickBox.WorkerService/Dockerfile'
+#     buildContext: './Src'
+#     tags: 'latest'
