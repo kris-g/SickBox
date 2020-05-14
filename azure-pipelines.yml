@@ -36,7 +36,7 @@ steps:
 - task: Docker@2
   inputs:
     containerRegistry: 'Docker Hub (kr1sg)'
-    repository: 'kris_g/krisg.sickbox.workerservice'
+    repository: 'kr1sg/krisg.sickbox.workerservice'
     command: 'buildAndPush'
     Dockerfile: './Src/KrisG.SickBox.WorkerService/Dockerfile'
     buildContext: './Src'
