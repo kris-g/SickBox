@@ -28,6 +28,11 @@ steps:
 #     projects: '**/*.csproj'
 #     arguments: '-c Release'
 
+- task: ShellScript@2
+  inputs:
+    scriptPath: 'docker'
+    args: 'buildx'
+
 - task: Docker@2
   inputs:
     containerRegistry: 'Docker Hub (kr1sg)'
